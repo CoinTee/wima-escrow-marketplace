@@ -1,186 +1,746 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Wima Escrow Marketplace demo prototype — a trust-first marketplace for safe P2P commerce in Kenya.">
-<title>Wima Escrow Marketplace | Demo Prototype</title>
-<style>
-:root{
-  --bg:#f6f5f1;--card:#fff;--ink:#14181f;--mut:#5b6573;--line:#dfe3e8;--buy:#1d4ed8;--sell:#d7263d;--gold:#c99a2e;--goldt:#8a6508;--goldbg:#f6ecd0;--ok:#12794a;--okbg:#e2f3ea;--wn:#8a5a00;--wnbg:#fbefd2;--bg2:#e9eefc;--depth:#eff5ff;
-  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)
-}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e131b;--card:#171e29;--ink:#eef1f5;--mut:#9aa6b6;--line:#2a3442;--buy:#7da0ff;--sell:#ff7d8c;--goldt:#e6b94d;--goldbg:#2d2610;--ok:#4cc38a;--okbg:#10291e;--wn:#f0b84c;--wnbg:#2c2210;--bg2:#16203a;--depth:#111d35}}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Avenir Next","Segoe UI",Roboto,system-ui,sans-serif}
-#app{max-width:580px;margin:0 auto;padding:0 14px 90px}
-a{color:var(--buy)}h1,h2,h3{font-family:"Sora","Avenir Next","Segoe UI",system-ui,sans-serif;letter-spacing:-.01em;margin:.4em 0}
-.demo{background:var(--gold);color:#14181f;text-align:center;font-size:12px;padding:5px;font-weight:700;position:sticky;top:0;z-index:5;letter-spacing:.04em}
-.top{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;flex-wrap:wrap}
-.brand{display:flex;gap:8px;align-items:center;text-decoration:none;color:var(--ink)}.brand b{display:block;font-size:20px;line-height:1}.brand small{color:var(--mut);font-size:11px}
-.who{font-size:12px;color:var(--mut)}select,input[type=text],input[type=password],input[type=number]{font:inherit;padding:9px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-width:100%}
-.hero{background:linear-gradient(135deg,var(--bg2),var(--goldbg));border:1px solid var(--line);border-radius:16px;padding:18px;margin:6px 0 12px;box-shadow:0 8px 22px rgba(20,24,31,.04)}
-.tag{color:var(--goldt);font-weight:700;margin:0}
-.chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0}.chip{border:1px solid var(--gold);border-radius:99px;padding:4px 11px;font-size:12px;white-space:nowrap;background:var(--goldbg)}.chip.soon{opacity:.55;border-style:dashed;background:none}
-.card,.lc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0}
-.lc{display:flex;gap:12px;text-decoration:none;color:var(--ink)}.lc:hover{border-color:var(--gold)}.lc svg{flex:none;border-radius:10px}
-.price{font-weight:800;font-size:20px;color:var(--goldt);margin:2px 0}.mut{color:var(--mut);font-size:13px;margin:2px 0}
-.badges{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}.badge{font-size:11px;border-radius:99px;padding:2px 8px;font-weight:600;background:var(--line)}
-.b-g{background:var(--goldbg);color:var(--goldt)}.b-b{background:var(--bg2);color:var(--buy)}.b-ok{background:var(--okbg);color:var(--ok)}.b-s{background:#fde6e9;color:var(--sell)}
-.btn{display:inline-block;border:0;border-radius:11px;padding:11px 15px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;margin:4px 6px 4px 0;color:#fff;background:var(--buy)}
-.btn.g{background:var(--gold);color:#14181f}.btn.s{background:var(--sell)}.btn.o{background:none;color:var(--ink);border:1px solid var(--line)}.btn.w{width:100%;margin-right:0}.btn:disabled{opacity:.45;cursor:not-allowed}
-.btn:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.alert{display:flex;gap:8px;border-radius:12px;padding:10px 12px;margin:8px 0;font-size:14px;border:1px solid var(--line)}.alert.info{background:var(--bg2)}.alert.warn{background:var(--wnbg);color:var(--wn)}.alert.ok{background:var(--okbg);color:var(--ok)}.alert.err{background:#fdeaea;color:#8c1d1d;border-color:#c0392b}
-table{width:100%;border-collapse:collapse;font-size:14px}td{padding:6px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right}tr.h td{background:var(--goldbg);font-weight:700;padding:6px}tr.t td{font-weight:800}
-.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:200px}
-.sellc{border-left:4px solid var(--sell)}.buyc{border-left:4px solid var(--buy)}
-.timer{text-align:center;background:var(--goldbg);border:1px solid var(--gold);border-radius:14px;padding:10px;margin:8px 0}.timer b{font-size:28px;font-family:Sora,system-ui,sans-serif}
-.nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;gap:4px;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:6}
-.nav a,.nav button{flex:1;max-width:120px;text-align:center;font-size:12px;text-decoration:none;color:var(--ink);background:none;border:0;padding:8px 2px;border-radius:8px;cursor:pointer;font-family:inherit}.nav a.on{background:var(--goldbg);font-weight:700}
-.ev{position:fixed;left:0;right:0;bottom:56px;max-height:35vh;overflow:auto;background:#10151d;color:#e8edf3;font:12px/1.5 ui-monospace,Menlo,monospace;padding:8px 12px;z-index:7}.ev i{color:#e6b94d;font-style:normal}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:70px;background:#14181f;color:#fff;padding:9px 14px;border-radius:10px;z-index:9;font-size:14px;max-width:90%}
-.msg{margin:4px 0;padding:6px 10px;border-radius:10px;max-width:85%}.mb{background:var(--bg2)}.ms{background:#fde6e9;margin-left:auto}
-.chk{display:flex;gap:8px;align-items:flex-start;margin:8px 0;font-size:14px}.back{display:inline-block;margin:6px 0;font-size:14px}
-.steps{display:flex;gap:4px;margin:12px 0}.steps i{flex:1;height:5px;border-radius:3px;background:var(--line)}.steps i.on{background:var(--gold)}
-.qr{background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px;display:block;margin:6px 0}
-.stars button{font-size:20px;background:none;border:1px solid var(--line);border-radius:8px;cursor:pointer;color:var(--goldt);margin:2px}
-small{color:var(--mut)}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Wima Escrow Marketplace demo prototype — trust-first digital escrow for safer peer-to-peer trade in Kenya.">
+  <title>Wima Escrow Marketplace</title>
+  <style>
+    :root {
+      --bg: #f5f3ee;
+      --surface: #ffffff;
+      --muted: #677385;
+      --ink: #101722;
+      --line: #dfe5ec;
+      --gold: #c6992d;
+      --gold-soft: #f6ebcf;
+      --blue: #1746d2;
+      --blue-soft: #eaf0ff;
+      --red: #cf2a3b;
+      --red-soft: #fde9ec;
+      --green: #0f7b54;
+      --green-soft: #e7f5ee;
+      --shadow: 0 14px 28px rgba(17, 23, 34, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .demo-bar {
+      background: var(--gold);
+      color: #171512;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 18px 70px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 0 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue), #345ce7 42%, var(--gold));
+      position: relative;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .logo:before, .logo:after, .logo span {
+      content: "";
+      position: absolute;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .logo:before {
+      width: 4px;
+      height: 24px;
+      left: 11px;
+      top: 9px;
+    }
+
+    .logo:after {
+      width: 4px;
+      height: 24px;
+      right: 11px;
+      top: 9px;
+    }
+
+    .logo span {
+      width: 18px;
+      height: 4px;
+      top: 19px;
+      left: 12px;
+      box-shadow: 0 0 0 0 rgba(0,0,0,0);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: 0.95rem;
+      color: var(--muted);
+      padding: 9px 12px;
+      border-radius: 999px;
+      transition: 150ms ease;
+    }
+
+    .nav a:hover {
+      background: var(--blue-soft);
+      color: var(--ink);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--blue);
+      color: white;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 700;
+      box-shadow: 0 10px 20px rgba(23, 70, 210, 0.2);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+      padding: 18px 0 26px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: var(--gold-soft);
+      color: var(--gold);
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      padding: 7px 12px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      letter-spacing: -0.04em;
+      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      line-height: 0.96;
+      margin: 16px 0 16px;
+    }
+
+    .lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 22px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .button-alt {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 700;
+    }
+
+    .mini-stats {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .mini-stats strong {
+      display: block;
+      font-size: 1.5rem;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, var(--surface), #f7f9ff);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .status-box {
+      background: var(--green-soft);
+      color: var(--green);
+      border: 1px solid #bfe6d2;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .wallet-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .wallet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .pill.green { background: var(--green-soft); color: var(--green); }
+    .pill.gold { background: var(--gold-soft); color: #7a5400; }
+    .pill.blue { background: var(--blue-soft); color: var(--blue); }
+
+    .wallet-balance {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin: 8px 0 4px;
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .section {
+      padding-top: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: -0.04em;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 10px 20px rgba(16, 23, 34, 0.025);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .blue-box { background: var(--blue-soft); color: var(--blue); }
+    .gold-box { background: var(--gold-soft); color: #7d5c00; }
+    .red-box { background: var(--red-soft); color: var(--red); }
+
+    .listings {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .listing {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .thumb {
+      height: 170px;
+      background: linear-gradient(135deg, #dfeaff, #f7f0d7, #f4d7d7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thumb:before {
+      content: "";
+      position: absolute;
+      inset: 18px 18px 42px 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1d4ed8, #d7263d);
+      transform: skewX(-8deg);
+      box-shadow: inset 0 0 0 8px rgba(255,255,255,0.18);
+    }
+
+    .thumb:after {
+      content: "";
+      position: absolute;
+      width: 84px;
+      height: 84px;
+      border-radius: 16px;
+      right: 18px;
+      bottom: 18px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(17, 23, 34, 0.08);
+    }
+
+    .listing-body {
+      padding: 18px;
+    }
+
+    .listing-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
+
+    .price-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      gap: 12px;
+    }
+
+    .price {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .step {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+    }
+
+    .step-index {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--gold-soft);
+      color: #7a5500;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .step h4 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-top: 8px;
+    }
+
+    .cta-section {
+      margin-top: 30px;
+      background: linear-gradient(135deg, var(--blue), #1239ac);
+      color: white;
+      border-radius: 24px;
+      padding: 24px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      box-shadow: 0 24px 34px rgba(21, 58, 201, 0.22);
+    }
+
+    .cta-section h3 {
+      margin: 0 0 8px;
+      font-size: clamp(1.7rem, 2vw, 2.4rem);
+      letter-spacing: -0.04em;
+    }
+
+    .cta-section p {
+      margin: 0;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .cta.light {
+      background: white;
+      color: var(--ink);
+      box-shadow: none;
+    }
+
+    footer {
+      padding: 30px 0 50px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero, .grid-3, .listings, .flow, .metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid-3, .listings, .flow, .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="demo">Demo prototype · no real money or live KYC data</div>
-<div id="app"></div>
-<script>
-const RATE=129.4,$=s=>document.querySelector(s);
-const kes=n=>"KSh "+Math.round(n).toLocaleString("en-KE");
-const U={b:{n:"Amina Wanjiku",kyc:1,rating:0,deals:7,ns:0,hold:0,mt:6,fm:4,bal:800},s:{n:"Brian Otieno",kyc:1,rating:4.9,deals:23,ns:1,hold:0,mt:22,fm:17,bal:150},n:{n:"New trader",kyc:0,rating:0,deals:0,ns:0,hold:0,mt:0,fm:0,bal:0},a:{n:"Wima staff"}};
-const score=u=>Math.round(u.rating/5*60+Math.max(0,40-8*u.ns));
-const express=u=>u.mt>=5&&u.fm*100>=u.mt*70&&u.ns*20<u.mt+u.ns;
-const AD={b:"0x7a3F…9c1D",s:"0x91Be…44A2",n:"0x5C0d…E817"};
-const walletCard=()=>`<div class="card buyc"><b>Your Wima Wallet</b> ${bd("ok","Non-custodial")}<br><small>${U[me].kyc?AD[me]:"Created when you finish KYC"} · Celo · Balance ${(U[me].bal||0).toFixed(2)} USDC</small><br><small>You hold the keys (passkey plus recovery). Wima never does. Network fees are sponsored, so you never need CELO. You can connect MiniPay or another wallet instead.</small></div>`;
-const L=[
-{id:1,t:"iPhone 13, 128 GB",p:52000,c:"Phones",cd:"Very good",ar:"Westlands",r:1,cr:1,o:"s",st:"Open",d:"Battery 89%. Box and charger included."},
-{id:2,t:"Samsung Galaxy S22, 256 GB",p:48000,c:"Phones",cd:"Like new",ar:"Kilimani",r:0,cr:0,o:"s",st:"Open",d:"Barely used, original box."},
-{id:3,t:"MacBook Air M1, 8/256",p:85000,c:"Laptops",cd:"Very good",ar:"Westlands",r:1,cr:1,o:"s",st:"Open",d:"Light use, low battery cycle count."},
-{id:4,t:"PlayStation 5 + 2 controllers",p:55000,c:"Gaming",cd:"Very good",ar:"South B",r:1,cr:1,o:"s",st:"Open",d:"Disc version."},
-{id:5,t:"JBL Charge 5 speaker",p:14000,c:"Audio",cd:"Like new",ar:"Kilimani",r:0,cr:1,o:"s",st:"Open",d:"Waterproof, deep bass."},
-{id:6,t:"Tecno Camon 20 Premier",p:28000,c:"Phones",cd:"Very good",ar:"Parklands",r:0,cr:0,o:"s",st:"Open",d:"256 GB, great camera."}];
-const M=[["Naivas outlet (demo), Westlands","Naivas"],["Naivas outlet (demo), Kilimani","Naivas"],["Rubis station (demo), Parklands","Rubis"],["Rubis station (demo), South B","Rubis"],["Public food court (demo), CBD","Other"]];
-const P=[["Pickup Mtaani","Within the city"],["Uber Courier","Within the city"],["Ena Coach","Outside the county"],["2NK","Outside the county"],["Guardian Angel","Outside the county"],["Mash Poa","Outside the county"]];
-let me="b",O=[],EV=[],DS=[],CH={},SU=0,SL=null,PY=null,flt=0,near=0,evo=0,AT="Risk flags",tt;
-const fee=p=>{const po=Math.round(p*.02),pl=Math.round(p*.079);return{po,pl,tot:po+pl,sel:p-po-pl}};
-const ev=(fn,m)=>{EV.unshift({t:new Date().toLocaleTimeString(),fn,m})};
-const toast=m=>{clearTimeout(tt);const e=$("#toast");if(e)e.remove();document.body.insertAdjacentHTML("beforeend",`<div class="toast" id="toast" role="status">${m}</div>`);tt=setTimeout(()=>{const x=$("#toast");if(x)x.remove()},2600)};
-const bd=(t,x)=>`<span class="badge b-${t}">${x}</span>`;
-const al=(t,h,b)=>`<div class="alert ${t}"><span aria-hidden="true">${{info:"ℹ",warn:"⚠",ok:"✓",err:"✕"}[t]}</span><div><b>${h}</b><br>${b}</div></div>`;
-const LOGO=`<svg width="40" height="40" viewBox="0 0 44 44" aria-hidden="true"><path d="M9 5v36M22 12v26M35 3v38" stroke="currentColor" stroke-width="2"/><rect x="4" y="11" width="10" height="22" rx="2" fill="#1d4ed8"/><rect x="17" y="17" width="10" height="13" rx="2" fill="#c99a2e"/><rect x="30" y="8" width="10" height="24" rx="2" fill="#d7263d"/></svg>`;
-const th=(l,big)=>{const s=big?300:84;return `<svg width="${big?"100%":s}" height="${big?200:s}" viewBox="0 0 100 ${big?67:100}" role="img" aria-label="${l.t}" preserveAspectRatio="xMidYMid slice"><rect width="100" height="100" fill="#1d4ed8"/><rect x="50" width="50" height="100" fill="#d7263d"/><rect x="38" y="${big?14:28}" width="24" height="${big?38:44}" rx="4" fill="#c99a2e"/><text x="50" y="${big?39:56}" text-anchor="middle" font-size="12" fill="#14181f" font-weight="700">${l.c[0]}</text></svg>`};
-const qr=seed=>{let h=0;for(const c of seed)h=(h*31+c.charCodeAt(0))>>>0;let r="";const f=(x,y)=>{if(!((x<7&&y<7)||(x>13&&y<7)||(x<7&&y>13)))return null;const m=x>13?x-14:x,k=y>13?y-14:y;return m==0||m==6||k==0||k==6||(m>1&&m<5&&k>1&&k<5)};for(let y=0;y<21;y++)for(let x=0;x<21;x++){let on=f(x,y);if(on===null){h=(h*1664525+1013904223)>>>0;on=(h>>>28)>6}if(on)r+=`<rect x="${x}" y="${y}" width="1" height="1"/>`}return `<svg class="qr" width="120" height="120" viewBox="-1 -1 23 23" role="img" aria-label="Demo QR code"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#000">${r}</g></svg>`};
-const feeT=(p,hp)=>{const f=fee(p);return `<table class="card"><tr class="h"><td colspan="2">Where the locked funds go</td></tr><tr><td>Agreed price (locked)</td><td>${kes(p)}</td></tr><tr><td>Buyer-protection pool (2%)</td><td>${kes(f.po)}</td></tr><tr><td>Platform (7.9%)</td><td>${kes(f.pl)}</td></tr><tr><td>Total fee (9.9%)</td><td>${kes(f.tot)}</td></tr><tr class="t"><td>Seller receives (90.1%)</td><td>${kes(f.sel)}</td></tr><tr><td colspan="2"><small>Fee is taken from the locked price, not added on top. No holdback for most sellers. Sellers our system flags as higher risk may have 10% to 20% held for 48 hours.${hp?" This order: "+hp+"% held for 48 hours.":""} The buyer-protection pool is not insurance. Coverage is subject to terms.</small></td></tr></table>`};
-const ver=()=>U[me].kyc===1&&me!="a";
-const gate=()=>al("warn","Verification required",`Complete KYC and the liveness test to chat, list or lock funds. <a href="#/signup">Sign up</a> or switch user at the top.`);
+  <div class="demo-bar">Demo prototype · no real money · no live KYC data</div>
 
-function head(){return `<header class="top"><a href="#/" class="brand">${LOGO}<span><b>Wima</b><small>Trade with confidence</small></span></a><label class="who">Acting as <select id="who">${[["b","Buyer: Amina"],["s","Seller: Brian"],["n",U.n.kyc?"New trader (verified)":"New trader (unverified)"],["a","Staff"]].map(([k,v])=>`<option value="${k}" ${k===me?"selected":""}>${v}</option>`).join("")}</select></label></header>`}
-function nav(){const r=location.hash||"#/";return `<nav class="nav" aria-label="Main"><a href="#/" class="${r==="#/"?"on":""}">Browse</a><a href="#/sell" class="${r==="#/sell"?"on":""}">Sell</a><a href="#/orders" class="${r.startsWith("#/o")?"on":""}">Orders</a><a href="#/info" class="${r==="#/info"?"on":""}">Safety</a><a href="#/admin" class="${r==="#/admin"?"on":""}">Admin</a><button data-a="ev">Events</button></nav>`}
+  <div class="container">
+    <header class="topbar">
+      <a href="#" class="brand" aria-label="Wima home">
+        <span class="logo"><span></span></span>
+        <span>Wima</span>
+      </a>
 
-function home(){const ls=L.filter(l=>(!flt||l.r)&&(!near||["Westlands","Kilimani","Parklands"].includes(l.ar))).sort((a,b)=>express(U[b.o])-express(U[a.o]));return `<section class="hero"><div style="display:flex;gap:10px;align-items:center">${LOGO}<div><h1 style="margin:0">Wima Escrow Marketplace</h1><p class="tag">Trade with confidence</p></div></div><p>Karibu. Buy and sell phones and electronics in Nairobi. Your money stays locked until you inspect the item in person.</p>${!ver()&&me!="a"?`<a class="btn g" href="#/signup">Sign up and verify</a>":""}</section><div class="chips">${["Phones","Laptops","Audio","Gaming"].map(c=>`<span class="chip">${c}</span>`).join("")}${["Furniture","Clothes","Appliances"].map(c=>`<span class="chip soon">${c} · soon</span>`).join("")}</div><label class="chk"><input type="checkbox" data-a="flt" ${flt?"checked":""}> Receipt available only</label><label class="chk"><input type="checkbox" data-a="near" ${near?"checked":""}> Nearby (a few km from Westlands): neighbors can meet in minutes</label>${ls.map(l=>{const s=U[l.o];return `<a class="lc" href="#/l/${l.id}">${th(l)}<div><b>${l.t}</b><div class="price">${kes(l.p)}</div><div class="mut">${l.ar} · ${l.cd}${l.st!="Open"?" · "+l.st:""}</div><div class="badges">${bd("g","Verified")}${express(s)?bd("g","⚡ Express seller"):""}${score(s)>=90?bd("g","Top seller"):""}${l.r?bd("","Receipt available"):""}${l.cr?bd("b","Courier"):""}${bd("ok","AI-checked")}</div></div></a>`}).join("")}`}
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#listings">Listings</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#safety">Safety</a>
+      </nav>
 
-function detail(id){const l=L.find(x=>x.id==id);if(!l)return"<p>Not found.</p>";const s=U[l.o];const ch=(CH[l.id]||[]).map(m=>`<div class="msg ${m.me==="s"?"ms":"mb"}">${m.x}</div>${m.w?al("warn","Careful",m.w):""}`).join("");
-return `<a class="back" href="#/">Back</a>${th(l,1)}<h2>${l.t}</h2><div class="price">${kes(l.p)}</div><p class="mut">${l.ar} · ${l.cd} · ${l.c}</p><div class="badges">${bd("g","Verified")}${express(s)?bd("g","⚡ Express seller"):""}${score(s)>=90?bd("g","Top seller "+score(s)):""}${l.r?bd("","Receipt available"):""}${l.cr?bd("b","Courier available"):""}${bd("ok","AI-checked photos")}</div>${l.r?al("info","Receipt available","Seller-provided claim. Check the physical receipt and matching serial in person. Not an ownership guarantee."):""}<p>${l.d}</p><div class="card sellc"><b>Seller: ${s.n}</b><br>${s.deals} deals · ${s.rating}★ · ${s.ns} no-show · Score ${score(s)}<br>${s.fm}/${s.mt} meetings within 2 hours${express(s)?" · Express seller: prioritised in browse":""}<br><small>AI seller check: <b>${score(s)>=70?"Low risk":"Needs review"}</b> (account history, no-shows, rating, listing checks). <a href="#/info">Why?</a></small></div>${al("info","The seller leads the handover","The seller arranges and attends the meeting and travels to the buyer’s area or a suggested public place. Express sellers meet fast and are shown first.")}${feeT(l.p)}<h3>Chat and agree a price</h3>${ver()?`<div>${ch||"<small>Negotiate here. The seller then sets the agreed price.</small>"}</div><div style="display:flex;gap:6px;margin-top:6px"><input type="text" id="cm" placeholder="Write a message" style="flex:1" aria-label="Message"><button class="btn" data-a="chat" data-id="${l.id}">Send</button></div>`:gate()}${l.st!="Open"?al("info","Not available","This item is currently "+l.st.toLowerCase()+"."):l.o===me?al("info","Your listing","You can’t buy your own item."):ver()?`<a class="btn g w" href="#/pay/${l.id}">Lock funds</a>":""}`}
+      <a href="#demo" class="cta">View prototype</a>
+    </header>
 
-function signup(){const s=["Phone","ID document","Selfie + liveness","M-Pesa name match"];const b=[`<label>Phone number<br><input type="text" value="+254 7" aria-label="Phone"></label><p><small>We send a one-time code (simulated).</small></p>`,`<p>National ID, passport or driving licence, front and back (simulated, nothing is stored).</p><div class="row"><div class="card">Front</div><div class="card">Back</div></div>`,`${al("info","Liveness test","Blink, then turn your head slowly (simulated)." )}<div class="card" style="text-align:center;border-radius:99px;width:150px;height:150px;margin:auto;display:flex;align-items:center;justify-content:center;border:4px solid var(--gold)">Camera</div>`,`${al("ok","Name check","M-Pesa name matches your ID. No duplicate identity found.")}<p>Everyone verifies before any deal, buyers and sellers.</p>`][SU];return `<a class="back" href="#/">Back</a><h2>Create account</h2><div class="steps">${s.map((x,i)=>`<i class="${i<=SU?"on":""}"></i>`).join("")}</div><h3>${s[SU]}</h3>${b}<button class="btn g w" data-a="kyc">${SU<3?"Continue":"Finish verification"}</button>`}
+    <main id="demo">
+      <section class="hero">
+        <div>
+          <span class="eyebrow">Digital trust infrastructure</span>
+          <h1>Escrow that actually feels safe.</h1>
+          <p class="lead">Wima helps buyers and sellers transact with confidence using accountable escrow, real verification, public meetup rules, and AI-assisted risk checks.</p>
 
-function sell(){if(!ver())return gate();SL=SL||{shots:0,dl:0,decl:0,cr:0,t:"",p:"",res:null};return `<h2>List an item</h2>${al("info","In-app camera only","Gallery uploads are blocked. Take 5 guided photos: front, back, sides, screen on with the code word, and the IMEI screen.")}<div class="card"><input type="text" data-i="t" placeholder="Title (e.g. iPhone 12, 64 GB)" value="${SL.t}" aria-label="Title" style="width:100%"><br><br><input type="number" data-i="p" placeholder="Price in KSh" value="${SL.p}" aria-label="Price" style="width:100%"></div><div class="card"><b>Photos: ${SL.shots}/5</b>${SL.dl?al("err","Downloaded image detected","Reused or downloaded photos are rejected."):""}<br><button class="btn" data-a="shot" ${SL.shots>=5?"disabled":""}>Take guided photo</button><button class="btn o" data-a="dl">Try adding a downloaded photo</button></div><label class="chk"><input type="checkbox" data-a="cr" ${SL.cr?"checked":""}> I agree to courier delivery with a packaging video and trusted partners only.</label><label class="chk"><input type="checkbox" data-a="decl" ${SL.decl?"checked":""}> I confirm that I own this item and have the right to sell it. I took every photo and video myself in the Wima app. I understand that false declarations lead to a permanent ban and may be reported to the authorities.</label><button class="btn g w" data-a="submit">Submit for AI check</button>${SL.res||""}`}
+          <div class="buttons">
+            <a href="#listings" class="cta">Explore listings</a>
+            <a href="#features" class="button-alt">See the model</a>
+          </div>
 
-function pay(id){const l=L.find(x=>x.id==id);if(!l)return"<p>Not found.</p>";if(!ver())return gate();if(!PY||PY.id!=id)PY={id,mode:"person",tick:0,pt:"",mp:0,step:"q",pm:"mpesa"};const dl=PY.mode==="delivery",u=(l.p/RATE).toFixed(2),mf=Math.round(l.p*.01),hp=dl?Math.max(10,U[l.o].hold):U[l.o].hold;
-if(PY.step==="pin"&&PY.pm==="usdc")return `<h2>Approve in your wallet</h2>${walletCard()}${al("info","Paying in USDC","No M-Pesa step and no conversion fee. Approve the transfer into escrow in your Wima Wallet (simulated).")}<button class="btn g w" data-a="paygo">Approve and lock ${(l.p/RATE).toFixed(2)} USDC</button>`;
-if(PY.step==="pin")return `<h2>Confirm with M-Pesa</h2>${al("ok","Fraud check passed","Name matches ID, normal amount, no reversal history (AI agent).")}${al("info","STK push","Enter your M-Pesa PIN on your phone (simulated).")}<input type="password" id="pin" maxlength="4" value="1234" aria-label="M-Pesa PIN" style="font-size:24px;text-align:center;letter-spacing:.4em;width:100%"><button class="btn g w" data-a="paygo">Confirm payment</button>`;
-return `<a class="back" href="#/l/${l.id}">Back</a><h2>Checkout</h2><p>${l.t}</p><div class="card"><b>How will you trade?</b><label class="chk"><input type="radio" name="m" data-a="mode" data-v="person" ${!dl?"checked":""}> In person (recommended). Inspect before you release.</label><label class="chk"><input type="radio" name="m" data-a="mode" data-v="delivery" ${dl?"checked":""} ${l.cr?"":"disabled"}> Delivery (high risk)${l.cr?"":" · seller has not agreed to courier"}</label></div>
-${dl?`${al("err","Delivery is high risk","Delivery is a higher-risk way to trade. You cannot inspect the item before you pay. By choosing delivery you accept that you carry the risk of loss, damage or non-delivery, because you chose this mode at your own discretion. Wima Escrow Marketplace is not liable for losses on delivery orders, but we will help in every way possible: reviewing evidence, contacting the courier and mediating. Delivery orders are not covered by the buyer-protection pool. Record your unboxing video to protect any appeal. <small>(Draft wording, to be reviewed by Kenyan counsel.)</small>")}<label class="chk"><input type="checkbox" data-a="tick" ${PY.tick?"checked":""}> I understand and choose delivery at my own risk.</label><div class="card"><b>Trusted partners only</b><br>${["Within the city","Outside the county"].map(g=>`<small>${g}</small><br>${P.filter(p=>p[1]===g).map(p=>`<label class="chk"><input type="radio" name="p" data-a="pt" data-v="${p[0]}" ${PY.pt===p[0]?"checked":""}> ${p[0]}</label>`).join("")}`).join("")}</div>${al("warn","Holdback","Delivery orders hold "+hp+"% of the seller’s proceeds for 48 hours (10% to 20% depending on risk).")}`:`<div class="card"><b>Meetup place</b><br><small>Suggested public places. Wima is not affiliated with or endorsed by these businesses.</small>${M.map((m,i)=>`<label class="chk"><input type="radio" name="mp" data-a="mp" data-v="${i}" ${PY.mp==i?"checked":""}> ${m[0]} ${i<4?bd("g","Suggested"):""}</label>`).join("")}<small>Meet in daylight and in the open, sit in a visible area, bring a friend. Do not hand over the item until the buyer taps Accept.</small></div>`}
-${walletCard()}<div class="card"><b>How will you pay?</b><label class="chk"><input type="radio" name="pm" data-a="pm" data-v="mpesa" ${PY.pm!="usdc"?"checked":""}> M-Pesa (we convert it to USDC for you)</label><label class="chk"><input type="radio" name="pm" data-a="pm" data-v="usdc" ${PY.pm==="usdc"?"checked":""}> USDC from my wallet. No M-Pesa step and no conversion fee.</label></div><div class="card"><table><tr><td>Agreed price</td><td>${kes(l.p)}</td></tr><tr><td>Locked as</td><td>${u} USDC (1 USDC = KSh ${RATE})</td></tr>${PY.pm==="usdc"?`<tr class="t"><td>You pay in USDC</td><td>${u} USDC</td></tr>`:`<tr><td>M-Pesa conversion (about 1%)</td><td>${kes(mf)}</td></tr><tr class="t"><td>You pay by M-Pesa</td><td>${kes(l.p+mf)}</td></tr>`}</table></div>${feeT(l.p,hp)}${al("info","Never pay outside Wima.","Funds are protected only when locked in escrow.")}<button class="btn g w" data-a="payq" ${dl&&(!PY.tick||!PY.pt)?"disabled":""}>Pay with ${PY.pm==="usdc"?"USDC":"M-Pesa"}</button>`}
+          <div class="mini-stats">
+            <div>
+              <strong>9 hrs</strong>
+              escrow window
+            </div>
+            <div>
+              <strong>2%</strong>
+              buyer protection pool
+            </div>
+            <div>
+              <strong>48 hrs</strong>
+              inspection window
+            </div>
+          </div>
+        </div>
 
-function orders(){const mine=O.filter(o=>me==="a"||o.b===me||o.s===me);return `<h2>Orders</h2>${walletCard()}${mine.length?mine.map(o=>`<a class="lc" href="#/o/${o.id}"><div><b>Order ${o.id}: ${L.find(l=>l.id==o.l).t}</b><div class="price">${kes(o.price)}</div><div class="badges">${bd("g",o.state)}${bd(o.mode==="delivery"?"s":"b",o.mode==="delivery"?"Delivery":"In person")}</div></div></a>`).join(""):"<p class='mut'>No orders yet. Lock funds on a listing to start.</p>"}`}
+        <aside class="hero-card" aria-label="Demo wallet and status">
+          <div class="status-box">Protected escrow flow · demo mode</div>
 
-function order(id){const o=O.find(x=>x.id==id);if(!o)return"<p>Order not found.</p>";const l=L.find(x=>x.id==o.l),f=fee(o.price),hb=Math.round(o.price*o.hp/100),dl=o.mode==="delivery";
-let h=`<a class="back" href="#/orders">Orders</a><h2>Order ${o.id}: ${l.t}</h2><div class="price">${kes(o.price)} ${bd("g",o.state)}</div><p class="mut">${dl?"Delivery (high risk)":"In person"} · Buyer ${U[o.b].n} · Seller ${U[o.s].n}</p>`;
-const S=o.state;
-if(!dl&&S==="Locked"){h+=`<div class="timer"><small>Time left to meet</small><br><b id="cd" data-o="${o.id}"></b></div>${al("warn","The seller leads the handover","The seller is responsible for arranging and attending the meeting, and for travelling to the buyer’s area or a suggested public place. The seller must propose a time within 30 minutes of the lock. The 9-hour limit is only a backstop: neighbors can meet in minutes.")}${o.prop?al("ok","Seller proposed","Meet in "+o.prop+" minutes at "+M[o.mp][0]+"."):`<div class="card sellc"><b>Seller: propose a time</b><br>${[[15,"15 min (estate gate)"],[30,"30 min"],[60,"1 hour"],[120,"2 hours"]].map(([m,x])=>`<button class="btn s" data-a="prop" data-m="${m}">${x}</button>`).join("")}</div>`}${al("info",M[o.mp][0],"Suggested public places. Wima is not affiliated with or endorsed by these businesses.")}${al("info","Safety tips","Meet in daylight and in the open, sit in a visible area, bring a friend. Do not hand over the item until the buyer taps Accept.")}<p><small>Tap “I’m here” to show your code, then scan the other person’s code. Switch user at the top to act as each side.</small></p><div class="row">${[["b","Buyer","buyc"],["s","Seller","sellc"]].map(([k,n,c])=>`<div class="card ${c}"><b>${n}</b>${o[k+"h"]?qr(k+o.id+Math.floor(Date.now()/30000)):`<br><button class="btn" data-a="here" data-k="${k}">I’m here</button>`}${o[k+"h"]?`<br><button class="btn o" data-a="scan" data-k="${k}" ${o[k==="b"?"sh":"bh"]&&!o[k+"s"]?"":"disabled"}>${o[k+"s"]?"Scanned":"Scan the other’s code"}</button>`:""}</div>`).join("")}</div><button class="btn o" data-a="skip">Skip ahead 9 hours (demo)</button><button class="btn o" data-a="slow">Pretend 3 hours have passed (demo)</button>`}
-if(!dl&&S==="Inspecting")h+=`${al("ok","Both confirmed with QR codes","Check the receipt, IMEI and phone before you decide.")}<div class="card"><b>Inspection checklist</b><ul><li>IMEI or serial matches the box and listing (dial *#06#)</li><li>Receipt check, if claimed</li><li>Find My or activation lock is off</li><li>Battery health, screen, cameras, speakers, SIM and ports</li><li>Factory reset in front of the buyer</li></ul></div><button class="btn g" data-a="accept">Buyer: Accept and release</button><button class="btn o" data-a="walk">Buyer: Walk away and refund</button>`;
-if(S==="Locked"&&dl)h+=`<div class="timer"><small>Seller must ship within</small><br><b id="cd" data-o="${o.id}"></b></div>${al("warn","Seller steps","Record a continuous packaging video in the app (item powering on with IMEI and code word, seal number, parcel label), then hand it to "+o.pt+".")}<button class="btn s" data-a="pack" ${o.pack?"disabled":""}>${o.pack?"Packing video: AI says Authentic":"Seller: Record packing video"}</button><button class="btn s" data-a="ship" ${o.pack?"":"disabled"}>Seller: Enter waybill and mark shipped</button>`;
-if(S==="Shipped")h+=`${al("info","Shipped with "+o.pt,"Waybill "+o.way+". The buyer gives this secret code to the courier only when receiving the sealed parcel.")}<div class="card buyc"><b>Buyer’s delivery code</b>${qr("d"+o.code)}<b style="font-size:22px;letter-spacing:.2em">${o.code}</b></div><button class="btn" data-a="prove">Courier enters the code (proves delivery)</button>`;
-if(S==="Delivered")h+=`${al("warn","48-hour inspection window","Record one continuous unboxing video from the sealed parcel with the seal number visible. It is kept for any appeal.")}<button class="btn" data-a="unbox" ${o.unb?"disabled":""}>${o.unb?"Unboxing video: AI says Authentic":"Buyer: Record unboxing video"}</button><br><button class="btn g" data-a="accept" ${o.unb?"":"disabled"}>Buyer: Accept</button><button class="btn o" data-a="reject" ${o.unb?"":"disabled"}>Buyer: Reject and return</button><button class="btn o" data-a="disp" ${o.unb?"":"disabled"}>Buyer: Raise dispute</button><p><small>If the buyer does nothing for 48 hours, funds release to the seller.</small></p>`;
-if(S==="ReturnPending")h+=`${al("warn","Return in progress","Ship the item back with the same trusted partners.")}<button class="btn" data-a="shipback">Buyer: Item shipped back</button>`;
-if(S==="ReturnShipped")h+=`<button class="btn s" data-a="confret">Seller: Confirm item returned</button>`;
-if(S==="Returned")h+=al("ok","Returned and refunded",`${(o.price/RATE).toFixed(2)} USDC refunded to the buyer. Cashing it out costs another conversion fee.`);
-if(S==="Disputed")h+=al("warn","With the arbiter","The arbiter reviews both videos, AI reports, courier records and chat. Platform help is best effort, not a guarantee. Open the Admin tab to rule.");
-if(S==="Resolved")h+=al("ok","Resolved by the arbiter",o.res);
-if(S==="Released"){h+=`${al("ok","Funds released",`Seller receives ${kes(f.sel-hb)} now${hb?` and ${kes(hb)} after the 48-hour holdback`:""}.`)}${feeT(o.price,o.hp)}${o.rated?al("ok","Thanks for rating","Seller score is now "+score(U[o.s])):`<div class="card"><b>Rate the seller</b><div class="stars">${[1,2,3,4,5].map(n=>`<button data-a="rate" data-n="${n}" aria-label="${n} stars">${n}★</button>`).join("")}</div></div>`}<button class="btn s" data-a="cash" ${o.cash?"disabled":""}>${o.cash?"Paid out to M-Pesa":"Seller: Cash out to M-Pesa"}</button>`}
-if(S==="WalkedAway")h+=al("warn","You walked away",`${(o.price/RATE).toFixed(2)} USDC returned to the buyer’s wallet. Cashing it out to M-Pesa costs another conversion fee; Wima covers it when the seller is at fault.`);
-if(S==="Expired")h+=`${al("err","Order cancelled",`Nobody confirmed within 9 hours. The buyer was refunded in full. ${o.nsMsg}`)}<p>Buyer: reopen with 2 hours of priority before anyone else can lock this item.</p><button class="btn g" data-a="reopen">Buyer: Reopen escrow</button>`;
-return h}
+          <div class="wallet-card">
+            <div class="wallet-head">
+              <span>Wima Wallet</span>
+              <span class="pill green">Non-custodial</span>
+            </div>
+            <div class="small">0x7a3F…9c1D · Celo · Balance</div>
+            <div class="wallet-balance">800.00 USDC</div>
+            <div class="small">Passkey + recovery configured. Wima never holds your keys.</div>
+          </div>
 
-function admin(){if(me!="a")return al("warn","Staff only","Switch to Staff at the top to open the console.");const rel=O.filter(o=>o.state==="Released"),sales=rel.reduce((s,o)=>s+o.price,0);
-const tabs=["KYC review","Listing flags","Video reviews","Disputes","Risk flags","Audit log"];
-let b="";if(AT==="Disputes")b=DS.filter(d=>!d.done).length?DS.filter(d=>!d.done).map(d=>`<div class="card"><b>Order ${d.o}</b> ${d.r}<br><button class="btn g" data-a="res" data-o="${d.o}" data-v="release">Release to seller</button><button class="btn o" data-a="res" data-o="${d.o}" data-v="refund">Refund buyer</button><button class="btn o" data-a="res" data-o="${d.o}" data-v="partial">Partial (60%)</button></div>`).join(""):"<p class='mut'>No open disputes.</p>";
-else if(AT==="Risk flags")b=Object.entries(U).filter(([k,u])=>u.ns>0&&k!="a").map(([k,u])=>`<div class="card">${u.n}: ${u.ns} no-show(s), score ${score(u)}, holdback ${u.hold}%<br>${[0,10,15,20].map(v=>`<button class="btn o" data-a="hold" data-k="${k}" data-v="${v}">${v}%</button>`).join("")}<br><small>Applies to new orders only.</small></div>`).join("")||"<p class='mut'>No flagged traders.</p>";
-else if(AT==="Audit log")b=EV.filter(e=>e.fn=="admin").map(e=>`<p><small>${e.t}</small> ${e.m}</p>`).join("")||"<p class='mut'>No staff actions yet.</p>";
-else b="<p class='mut'>Queue empty in this demo. Items appear here when AI flags them.</p>";
-return `<h2>Admin console</h2><div class="row">${[["Orders",O.length],["Sales",kes(sales)],["Pool 2%",kes(sales*.02)],["Platform 7.9%",kes(sales*.079)]].map(([a,v])=>`<div class="card"><small>${a}</small><br><b>${v}</b></div>`).join("")}</div><div class="chips">${tabs.map(t=>`<button class="chip" style="${t===AT?"background:var(--gold);color:#14181f":""}" data-a="tab" data-v="${t}">${t}</button>`).join("")}</div>${b}`}
+          <div class="wallet-card">
+            <div class="wallet-head">
+              <span>Seller Risk</span>
+              <span class="pill gold">Low-risk</span>
+            </div>
+            <div class="small">AI review: listing quality, no-show history, and verification checks passed.</div>
+          </div>
+        </aside>
+      </section>
 
-function info(){return `<h2>How Wima keeps you safe</h2><div class="card"><ol><li>Agree a price in chat.</li><li>Pay by M-Pesa; it becomes USDC locked in escrow.</li><li>Meet in a public place within 9 hours and scan each other’s QR codes.</li><li>Inspect, then accept or walk away.</li></ol></div>${al("info","Ownership","I confirm that I own this item and have the right to sell it. I took every photo and video myself in the Wima app. I understand that false declarations lead to a permanent ban and may be reported to the authorities.")}${al("info","Receipt available","Seller-provided claim. Check the physical receipt and matching serial in person. Not an ownership guarantee.")}${al("info","Meetups","Suggested public places such as Naivas outlets and Rubis stations. Wima is not affiliated with or endorsed by these businesses.")}${al("warn","Pool","The buyer-protection pool is not insurance. Coverage is subject to terms.")}${al("warn","Never pay outside Wima.","Funds are protected only when locked in escrow.")}<h3>Fees</h3>${feeT(52000)}<h3>Your wallet</h3><div class="card">Every verified user gets a <b>Wima Wallet</b>: a non-custodial smart wallet on Celo. You hold the keys (passkey plus recovery), Wima never does, and network fees are sponsored. MiniPay and other wallets can be connected instead. One verified wallet per account; changing it needs a signature and a new liveness test.</div><h3>Seller-led, fast and local</h3><div class="card">The seller arranges and attends the handover and proposes a time within 30 minutes of the lock. Meetings confirmed within 2 hours earn the <b>⚡ Express seller</b> badge (5 or more meetings, 70% or more within 2 hours, no-show rate under 5%) and higher ranking. The 9-hour limit is only a backstop, and neighbors can meet in minutes using Nearby.</div><h3>Pay with crypto, skip M-Pesa</h3><div class="card">Already hold USDC? Pay directly from your wallet: no STK push, no conversion fee, and faster. Sellers can keep USDC or cash out to M-Pesa. KYC still applies.</div><h3>AI checks</h3><div class="card"><b>Listing authenticity:</b> rejects downloaded, reused or AI-generated images, metadata mismatches and bad IMEIs.<br><b>Seller risk:</b> low, medium or high from history, no-shows, rating and rejections.<br><b>M-Pesa fraud check:</b> name match, amount, device and repeat payments.<br><b>Video authenticity:</b> continuous take, code word, splice and metadata checks.<br><small>AI explains every decision and never moves money; a human can review any decision.</small></div><h3>Contract map</h3><div class="card"><small>Seller proposes a time = proposeMeet · Lock = approve + reserve · I’m here = confirmMeeting · Accept = accept · Walk away = reject · Timer ends = expire · Ship = markShipped · Delivery code = proveDelivery · Dispute = raiseDispute · Return = markReturnShipped, confirmReturn · Arbiter = resolveSettle / resolveReturn · Holdback = releaseHoldback · AI risk = setSellerRisk · KYC = setKyc</small></div>`}
+      <section class="section" id="features">
+        <div class="section-head">
+          <h2>Built for trust across every step</h2>
+          <span class="pill blue">Pre-seed concept demo</span>
+        </div>
 
-function render(){const r=location.hash||"#/";let v;const p=r.split("/");
-if(r==="#/")v=home();else if(p[1]==="l")v=detail(p[2]);else if(r==="#/signup")v=signup();else if(r==="#/sell")v=sell();else if(p[1]==="pay")v=pay(p[2]);else if(r==="#/orders")v=orders();else if(p[1]==="o")v=order(p[2]);else if(r==="#/admin")v=admin();else v=info();
-$("#app").innerHTML=head()+`<main>${v}</main>`+(evo?`<div class="ev" aria-live="polite">${EV.length?EV.slice(0,30).map(e=>`${e.t} <i>${e.fn}</i> ${e.m}`).join("<br>"):"No events yet."}</div>`:"")+nav();tick()}
-function tick(){const e=$("#cd");if(!e)return;const o=O.find(x=>x.id==e.dataset.o);if(!o)return;const ms=o.exp-Date.now();if(ms<=0){if(o.mode==="person"&&o.state==="Locked"){expire(o);render()}else e.textContent="Expired";return}e.textContent=Math.floor(ms/36e5)+"h "+Math.floor(ms%36e5/6e4)+"m "+Math.floor(ms%6e4/1e3)+"s"}
-setInterval(tick,1000);
-function expire(o){const l=L.find(x=>x.id==o.l);let m="";if(!o.prop){U[o.s].ns++;m+=`The seller never proposed a meeting, so only the seller is a no-show (score now ${score(U[o.s])}). The buyer is not penalised. ${express(U[o.s])?"":"Express badge lost. "}`}else{if(!o.sh){U[o.s].ns++;m+=`Seller no-show recorded (score now ${score(U[o.s])}). `}if(!o.bh){U[o.b].ns++;m+="Buyer no-show recorded. "}}o.nsMsg=m;o.state="Expired";l.st="Open";U[o.b].bal+=o.price/RATE;ev("expire","Order "+o.id+": 9-hour window ended, buyer refunded")}
-function release(o){const l=L.find(x=>x.id==o.l);o.state="Released";l.st="Sold";U[o.s].deals++;U[o.s].bal+=(fee(o.price).sel-Math.round(o.price*o.hp/100))/RATE;ev("accept","Order "+o.id+": funds released, fee split 2% pool + 7.9% platform")}
-const need=(o,k)=>{if(me!==(k==="b"?o.b:o.s)){toast("Switch to the "+(k==="b"?"buyer":"seller")+" at the top");return 0}return 1};
-const ord=()=>O.find(x=>x.id==location.hash.split("/")[2]);
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon-box blue-box">01</div>
+            <h3>Verified identity</h3>
+            <p>Identity, liveness, and M-Pesa name checks reduce fraud before a trade can start.</p>
+          </article>
 
-document.addEventListener("click",e=>{const t=e.target.closest("[data-a]");if(!t)return;const a=t.dataset.a,d=t.dataset;let o;
-if(a==="ev")evo=!evo;
-else if(a==="flt")flt=!flt;
-else if(a==="near")near=!near;
-else if(a==="pm")PY.pm=d.v;
-else if(a==="kyc"){SU++;if(SU>3){SU=0;U.n.kyc=1;me="n";ev("setKyc","New trader verified: ID + liveness + M-Pesa name match");toast("Verified. You can now list, chat and lock funds.");location.hash="#/";return render()}}
-else if(a==="chat"){const i=$("#cm"),x=i.value.trim();if(!x)return;const w=/paybill|send money|outside|pay me/i.test(x)?"Never pay outside Wima. Funds are protected only when locked in escrow.":/https?:|\+254|0[17]\d{8}/i.test(x)?"Sharing links or phone numbers before funds are locked is risky.":"";(CH[d.id]=CH[d.id]||[]).push({x,w,me});ev("chat","Message checked by scam detector"+(w?": warning shown":": clean"))}
-else if(a==="shot"){SL.shots++;SL.dl=0}else if(a==="dl"){SL.dl=1}else if(a==="decl"){SL.decl=!SL.decl}else if(a==="cr"){SL.cr=!SL.cr}
-else if(a==="submit"){const r=[];if(SL.dl)r.push("Downloaded or reused image found");if(SL.shots<5)r.push("Needs all 5 in-app photos");if(!SL.decl)r.push("Ownership declaration not ticked");if(!SL.t||!(+SL.p>0))r.push("Add a title and price");
-if(r.length)SL.res=al("err","Needs changes (AI check)","<ul>"+r.map(x=>"<li>"+x+"</li>").join("")+"</ul>");else{L.unshift({id:L.length+1,t:SL.t,p:+SL.p,c:"Phones",cd:"Very good",ar:"Nairobi",r:0,cr:SL.cr?1:0,o:me,st:"Open",d:"New listing, AI-approved."});ev("createListing","Listing approved by AI check");SL=null;toast("Listing approved and live");location.hash="#/";return render()}}
-else if(a==="mode"){PY.mode=d.v}else if(a==="tick"){PY.tick=!PY.tick}else if(a==="pt"){PY.pt=d.v}else if(a==="mp"){PY.mp=+d.v}
-else if(a==="payq"){const l=L.find(x=>x.id==PY.id);if(PY.pm==="usdc"&&U[me].bal<l.p/RATE)return toast("Not enough USDC in your wallet. Pay with M-Pesa or deposit USDC.");PY.step="pin"}
-else if(a==="paygo"){const l=L.find(x=>x.id==PY.id),dl=PY.mode==="delivery";const hp=dl?Math.max(10,U[l.o].hold):U[l.o].hold;o={id:O.length+1,l:l.id,b:me,s:l.o,price:l.p,mode:dl?"delivery":"person",mp:PY.mp,pt:PY.pt,state:"Locked",t0:Date.now(),pm:PY.pm,exp:Date.now()+(dl?2*864e5:9*36e5),hp,code:String(Math.floor(100000+Math.random()*899999))};O.push(o);l.st="Reserved";if(PY.pm==="usdc")U[me].bal-=l.p/RATE;ev("reserve",(PY.pm==="usdc"?"Paid in USDC from the Wima Wallet, no M-Pesa; approve + reserve ":"AI fraud check passed; approve + reserve ")+(l.p/RATE).toFixed(2)+" USDC, order "+o.id);PY=null;location.hash="#/o/"+o.id;return render()}
-else if((o=ord())){
-if(a==="here"){o[d.k+"h"]=1;ev("qr","QR generated for "+(d.k==="b"?"buyer":"seller"))}
-else if(a==="scan"){o[d.k+"s"]=1;ev("confirmMeeting",(d.k==="b"?"buyer":"seller")+" scanned the other’s QR");if(o.bs&&o.ss){o.state="Inspecting";const fast=Date.now()-o.t0<=72e5;U[o.s].mt++;U[o.b].mt++;if(fast){U[o.s].fm++;U[o.b].fm++}ev("confirmMeeting","Both scans done"+(fast?" within 2 hours: counts toward Express":" after 2 hours: not counted as fast"))}}
-else if(a==="skip"){o.exp=Date.now()-1;expire(o)}
-else if(a==="prop"){if(!need(o,"s"))return;o.prop=+d.m;ev("proposeMeet","Seller proposed meeting in "+d.m+" minutes")}
-else if(a==="slow"){o.t0-=3*36e5;toast("Pretending 3 hours have passed")}
-else if(a==="accept"){if(!need(o,"b"))return;release(o)}
-else if(a==="walk"){if(!need(o,"b"))return;o.state="WalkedAway";L.find(x=>x.id==o.l).st="Open";U[o.b].bal+=o.price/RATE;ev("reject","Order "+o.id+": buyer walked away, full refund")}
-else if(a==="reopen"){if(!need(o,"b"))return;o.state="Locked";o.bh=o.sh=o.bs=o.ss=0;o.exp=Date.now()+9*36e5;L.find(x=>x.id==o.l).st="Reserved";ev("reserve","Buyer reopens order "+o.id+" within the 2-hour priority window")}
-else if(a==="pack"){if(!need(o,"s"))return;o.pack=1;ev("anchorReport","AI video check: packing video Authentic")}
-else if(a==="ship"){if(!need(o,"s"))return;o.way="WB"+Date.now().toString().slice(-7);o.state="Shipped";o.exp=Date.now()+7*864e5;ev("markShipped","Waybill "+o.way+" via "+o.pt)}
-else if(a==="prove"){o.state="Delivered";o.exp=Date.now()+48*36e5;ev("proveDelivery","Delivery code accepted, 48-hour inspection starts")}
-else if(a==="unbox"){if(!need(o,"b"))return;o.unb=1;ev("anchorReport","AI video check: unboxing video Authentic")}
-else if(a==="reject"){if(!need(o,"b"))return;o.state="ReturnPending";ev("reject","Order "+o.id+": buyer rejects, return started")}
-else if(a==="shipback"){o.state="ReturnShipped";ev("markReturnShipped","Buyer shipped the item back")}
-else if(a==="confret"){if(!need(o,"s"))return;o.state="Returned";L.find(x=>x.id==o.l).st="Open";ev("confirmReturn","Seller confirmed return, buyer refunded")}
-else if(a==="disp"){if(!need(o,"b"))return;o.state="Disputed";DS.push({o:o.id,r:"Item not as shown in listing",done:0});ev("raiseDispute","Order "+o.id+" sent to the arbiter")}
-else if(a==="rate"){const n=+d.n,s=U[o.s];s.rating=+((s.rating*s.deals+n)/(s.deals+1)).toFixed(2);s.deals++;o.rated=1;ev("rating",n+" stars, seller score "+score(s))}
-else if(a==="cash"){o.cash=1;ev("cashOut","Payout to M-Pesa (KSh 70 flat fee plus conversion)")}}
-if(a==="hold"){U[d.k].hold=+d.v;ev("admin","Staff set "+U[d.k].n+" holdback to "+d.v+"%");ev("setSellerRisk",U[d.k].n+" holdback "+d.v+"%")}
-else if(a==="tab"){AT=d.v}
-else if(a==="res"){const x=O.find(q=>q.id==d.o),dd=DS.find(q=>q.o==d.o);dd.done=1;x.state="Resolved";x.res={release:"Released in full to the seller.",refund:"Refunded in full to the buyer.",partial:"60% to the seller, 40% back to the buyer."}[d.v];ev("admin","Staff ruled "+d.v+" on order "+d.o);ev(d.v==="refund"?"resolveReturn":"resolveSettle","Order "+d.o+": "+d.v)}
-render()});
+          <article class="card">
+            <div class="icon-box gold-box">02</div>
+            <h3>Escrow with rules</h3>
+            <p>Buyer funds are locked until meetup inspection, collection, or delivery confirmation.</p>
+          </article>
 
-document.addEventListener("input",e=>{const i=e.target.dataset.i;if(i&&SL)SL[i]=e.target.value});
-document.addEventListener("change",e=>{if(e.target.id==="who"){me=e.target.value;render()}});
-window.addEventListener("hashchange",()=>{window.scrollTo(0,0);render()});
-render();
-</script>
+          <article class="card">
+            <div class="icon-box red-box">03</div>
+            <h3>Safety-first handover</h3>
+            <p>QR code checks, public meetup guidance, and dispute pathways keep trade accountable.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="listings">
+        <div class="section-head">
+          <h2>Live demo listings</h2>
+          <span class="pill green">Receipt & AI checked</span>
+        </div>
+
+        <div class="listings">
+          <article class="listing">
+            <div class="thumb" aria-hidden="true"></div>
+            <div class="listing-body">
+              <div class="listing-title">iPhone 13, 128 GB</div>
+              <div class="meta">Westlands · Very good</div>
+              <div class="price-line">
+                <div class="price">KSh 52,000</div>
+                <span class="pill gold">Seller Verified</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="listing">
+            <div class="thumb" aria-hidden="true" style="background: linear-gradient(135deg, #e2f0ff, #e7e3ff, #f4dfcf);"></div>
+            <div class="listing-body">
+              <div class="listing-title">Samsung Galaxy S22</div>
+              <div class="meta">Kilimani · Like new</div>
+              <div class="price-line">
+                <div class="price">KSh 48,000</div>
+                <span class="pill blue">Fast meetup</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="listing">
+            <div class="thumb" aria-hidden="true" style="background: linear-gradient(135deg, #dfe9ff, #fff0d1, #f5e6d5);"></div>
+            <div class="listing-body">
+              <div class="listing-title">MacBook Air M1</div>
+              <div class="meta">Westlands · Very good</div>
+              <div class="price-line">
+                <div class="price">KSh 85,000</div>
+                <span class="pill green">AI checked</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="workflow">
+        <div class="section-head">
+          <h2>How the flow works</h2>
+        </div>
+
+        <div class="flow">
+          <div class="step">
+            <div class="step-index">1</div>
+            <h4>Verify</h4>
+            <p>Buyer and seller complete KYC and a liveness step before listing or locking funds.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-index">2</div>
+            <h4>Agree</h4>
+            <p>Chat, agree a price, and lock the deposit in escrow when both parties are ready.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-index">3</div>
+            <h4>Meet</h4>
+            <p>Use a public place, scan QR codes, and inspect the item before accepting or walking away.</p>
+          </div>
+
+          <div class="step">
+            <div class="step-index">4</div>
+            <h4>Resolve</h4>
+            <p>Funds release, disputes are reviewed, and bad actors are flagged by the platform.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="safety">
+        <div class="section-head">
+          <h2>Safety-first design</h2>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-label">Protection pool</div>
+            <div class="metric-value">2%</div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-label">Platform fee</div>
+            <div class="metric-value">7.9%</div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-label">Inspection window</div>
+            <div class="metric-value">48h</div>
+          </div>
+
+          <div class="metric">
+            <div class="metric-label">Escrow lock</div>
+            <div class="metric-value">9h</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div>
+          <h3>Ready to show a trust-first product story.</h3>
+          <p>Concept demo for early feedback, investor storytelling, and prototype validation.</p>
+        </div>
+        <a href="#" class="cta light">Open demo</a>
+      </section>
+    </main>
+
+    <footer>
+      Wima Escrow Marketplace · concept prototype for pre-seed validation
+    </footer>
+  </div>
 </body>
 </html>
