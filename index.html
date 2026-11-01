@@ -3,24 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Wima Escrow Marketplace demo prototype — trust-first digital escrow for safer peer-to-peer trade in Kenya.">
-  <title>Wima Escrow Marketplace</title>
+  <meta name="description" content="WA Escrow Marketplace — trust-first digital escrow for safer peer-to-peer trade in Kenya.">
+  <title>WA Escrow Marketplace</title>
   <style>
     :root {
-      --bg: #f5f3ee;
+      --bg: #f5f2eb;
       --surface: #ffffff;
-      --muted: #677385;
       --ink: #101722;
-      --line: #dfe5ec;
-      --gold: #c6992d;
-      --gold-soft: #f6ebcf;
-      --blue: #1746d2;
-      --blue-soft: #eaf0ff;
-      --red: #cf2a3b;
-      --red-soft: #fde9ec;
-      --green: #0f7b54;
-      --green-soft: #e7f5ee;
-      --shadow: 0 14px 28px rgba(17, 23, 34, 0.08);
+      --muted: #5c697b;
+      --line: #e1e5ec;
+      --blue: #1c5de2;
+      --blue-soft: #eaf1ff;
+      --gold: #d9a53c;
+      --gold-soft: #f8efdc;
+      --red: #d93a43;
+      --red-soft: #fdecef;
+      --green: #117f57;
+      --green-soft: #e7f7ee;
+      --shadow: 0 18px 38px rgba(16, 23, 34, 0.08);
+      --radius: 22px;
     }
 
     * { box-sizing: border-box; }
@@ -38,13 +39,13 @@
 
     .demo-bar {
       background: var(--gold);
-      color: #171512;
+      color: #1a140d;
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 8px 14px;
+      padding: 8px 12px;
       position: sticky;
       top: 0;
       z-index: 20;
@@ -69,48 +70,62 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      font-weight: 800;
-      font-size: 1.1rem;
+      color: var(--ink);
     }
 
-    .logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--blue), #345ce7 42%, var(--gold));
+    .brand-mark {
       position: relative;
-      display: grid;
-      place-items: center;
-      box-shadow: var(--shadow);
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.12));
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(16,23,34,0.04);
     }
 
-    .logo:before, .logo:after, .logo span {
+    .brand-mark .candle {
+      position: absolute;
+      bottom: 8px;
+      width: 10px;
+      border-radius: 4px 4px 2px 2px;
+      background: #1a60ef;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+    }
+
+    .brand-mark .candle:before {
       content: "";
       position: absolute;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.9);
+      left: 50%;
+      transform: translateX(-50%);
+      top: -12px;
+      width: 3px;
+      height: 14px;
+      background: rgba(17, 23, 34, 0.7);
+      border-radius: 2px;
     }
 
-    .logo:before {
-      width: 4px;
-      height: 24px;
-      left: 11px;
-      top: 9px;
+    .brand-mark .blue-left { left: 7px; height: 24px; background: #1d62ee; }
+    .brand-mark .gold-mid { left: 17px; height: 18px; background: var(--gold); }
+    .brand-mark .red-right { left: 27px; height: 28px; background: var(--red); }
+
+    .brand-name {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
     }
 
-    .logo:after {
-      width: 4px;
-      height: 24px;
-      right: 11px;
-      top: 9px;
+    .brand-name strong {
+      font-size: 1.18rem;
+      letter-spacing: -0.06em;
+      font-weight: 900;
     }
 
-    .logo span {
-      width: 18px;
-      height: 4px;
-      top: 19px;
-      left: 12px;
-      box-shadow: 0 0 0 0 rgba(0,0,0,0);
+    .brand-name small {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 3px;
     }
 
     .nav {
@@ -121,9 +136,10 @@
     }
 
     .nav a {
-      font-size: 0.95rem;
       color: var(--muted);
-      padding: 9px 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 10px 12px;
       border-radius: 999px;
       transition: 150ms ease;
     }
@@ -138,68 +154,69 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: var(--blue);
-      color: white;
-      border-radius: 12px;
       padding: 12px 18px;
-      font-weight: 700;
-      box-shadow: 0 10px 20px rgba(23, 70, 210, 0.2);
+      border-radius: 12px;
+      font-weight: 800;
+      transition: 150ms ease;
+    }
+
+    .cta.primary {
+      background: linear-gradient(135deg, var(--blue), #184fc7);
+      color: white;
+      box-shadow: 0 12px 24px rgba(28, 93, 226, 0.22);
+    }
+
+    .cta.secondary {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--ink);
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.12fr 0.88fr;
       gap: 28px;
       align-items: center;
-      padding: 18px 0 26px;
+      padding: 20px 0 24px;
     }
 
     .eyebrow {
       display: inline-block;
       background: var(--gold-soft);
-      color: var(--gold);
-      border-radius: 999px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
+      color: #7a5600;
       padding: 7px 12px;
-      font-size: 0.76rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
     h1 {
-      font-family: "Avenir Next", "Segoe UI", sans-serif;
-      letter-spacing: -0.04em;
-      font-size: clamp(2.4rem, 4vw, 4.2rem);
+      font-size: clamp(2.8rem, 5vw, 4.7rem);
       line-height: 0.96;
-      margin: 16px 0 16px;
+      letter-spacing: -0.065em;
+      margin: 18px 0 16px;
+      max-width: 620px;
     }
 
     .lead {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       color: var(--muted);
-      max-width: 640px;
-      margin-bottom: 22px;
+      max-width: 620px;
+      margin-bottom: 24px;
     }
 
     .buttons {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-
-    .button-alt {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-weight: 700;
+      margin-bottom: 26px;
     }
 
     .mini-stats {
       display: flex;
-      gap: 24px;
+      gap: 26px;
       flex-wrap: wrap;
       color: var(--muted);
       font-size: 0.92rem;
@@ -207,30 +224,31 @@
 
     .mini-stats strong {
       display: block;
-      font-size: 1.5rem;
       color: var(--ink);
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
       margin-bottom: 4px;
     }
 
-    .hero-card {
-      background: linear-gradient(180deg, var(--surface), #f7f9ff);
+    .hero-panel {
+      background: linear-gradient(180deg, #ffffff 0%, #f6f8ff 100%);
       border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 18px;
+      border-radius: 26px;
       box-shadow: var(--shadow);
+      padding: 18px;
     }
 
     .status-box {
       background: var(--green-soft);
       color: var(--green);
-      border: 1px solid #bfe6d2;
+      border: 1px solid #cfeee0;
       border-radius: 12px;
       padding: 12px 14px;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 16px;
     }
 
-    .wallet-card {
+    .panel-card {
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 18px;
@@ -238,10 +256,11 @@
       margin-bottom: 14px;
     }
 
-    .wallet-head {
+    .card-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
       margin-bottom: 12px;
       font-weight: 800;
     }
@@ -249,45 +268,45 @@
     .pill {
       display: inline-flex;
       align-items: center;
-      border-radius: 999px;
       padding: 5px 10px;
+      border-radius: 999px;
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .pill.green { background: var(--green-soft); color: var(--green); }
-    .pill.gold { background: var(--gold-soft); color: #7a5400; }
+    .pill.gold { background: var(--gold-soft); color: #7d5a08; }
     .pill.blue { background: var(--blue-soft); color: var(--blue); }
 
     .wallet-balance {
       font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      margin: 8px 0 4px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin: 8px 0 6px;
     }
 
     .small {
-      font-size: 0.9rem;
       color: var(--muted);
+      font-size: 0.9rem;
     }
 
     .section {
-      padding-top: 18px;
+      padding-top: 22px;
     }
 
     .section-head {
       display: flex;
       justify-content: space-between;
       align-items: end;
-      gap: 16px;
+      gap: 14px;
       margin-bottom: 18px;
       flex-wrap: wrap;
     }
 
     .section-head h2 {
       margin: 0;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      letter-spacing: -0.04em;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      letter-spacing: -0.05em;
     }
 
     .grid-3 {
@@ -299,14 +318,15 @@
     .card {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 18px;
+      border-radius: var(--radius);
       padding: 20px;
       box-shadow: 0 10px 20px rgba(16, 23, 34, 0.025);
     }
 
     .card h3 {
       margin: 0 0 10px;
-      font-size: 1.2rem;
+      font-size: 1.18rem;
+      letter-spacing: -0.03em;
     }
 
     .card p {
@@ -315,19 +335,19 @@
     }
 
     .icon-box {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
       margin-bottom: 14px;
-      font-size: 1.3rem;
       font-weight: 800;
+      font-size: 1.25rem;
     }
 
-    .blue-box { background: var(--blue-soft); color: var(--blue); }
-    .gold-box { background: var(--gold-soft); color: #7d5c00; }
-    .red-box { background: var(--red-soft); color: var(--red); }
+    .icon-blue { background: var(--blue-soft); color: var(--blue); }
+    .icon-gold { background: var(--gold-soft); color: #7a5300; }
+    .icon-red { background: var(--red-soft); color: var(--red); }
 
     .listings {
       display: grid;
@@ -339,13 +359,13 @@
     .listing {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 22px;
       overflow: hidden;
     }
 
     .thumb {
-      height: 170px;
-      background: linear-gradient(135deg, #dfeaff, #f7f0d7, #f4d7d7);
+      height: 175px;
+      background: linear-gradient(135deg, #dfeaff, #f9edca, #f0d7d7);
       position: relative;
       overflow: hidden;
     }
@@ -355,22 +375,27 @@
       position: absolute;
       inset: 18px 18px 42px 18px;
       border-radius: 16px;
-      background: linear-gradient(135deg, #1d4ed8, #d7263d);
+      background: linear-gradient(135deg, #1f60f4, #d93a43);
       transform: skewX(-8deg);
-      box-shadow: inset 0 0 0 8px rgba(255,255,255,0.18);
+      box-shadow: inset 0 0 0 8px rgba(255,255,255,0.15);
     }
 
     .thumb:after {
       content: "";
       position: absolute;
-      width: 84px;
-      height: 84px;
-      border-radius: 16px;
+      width: 86px;
+      height: 86px;
       right: 18px;
       bottom: 18px;
+      border-radius: 18px;
       background: rgba(255,255,255,0.7);
-      border: 1px solid rgba(17, 23, 34, 0.08);
+      border: 1px solid rgba(16,23,34,0.06);
     }
+
+    .thumb.alt { background: linear-gradient(135deg, #edf3ff, #ece8ff, #f7e5d8); }
+    .thumb.alt:before { background: linear-gradient(135deg, #2f7af6, #9c8eff); }
+    .thumb.alt2 { background: linear-gradient(135deg, #eff6ff, #fff0cf, #f7e9d9); }
+    .thumb.alt2:before { background: linear-gradient(135deg, #143ba7, #d5a63b); }
 
     .listing-body {
       padding: 18px;
@@ -379,27 +404,27 @@
     .listing-title {
       font-size: 1.1rem;
       font-weight: 800;
-      margin-bottom: 6px;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
     }
 
     .meta {
       color: var(--muted);
       font-size: 0.92rem;
-      margin-top: 8px;
     }
 
-    .price-line {
+    .price-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 16px;
       gap: 12px;
+      margin-top: 18px;
     }
 
     .price {
       font-size: 1.75rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
+      font-weight: 900;
+      letter-spacing: -0.05em;
     }
 
     .flow {
@@ -423,14 +448,14 @@
       display: grid;
       place-items: center;
       background: var(--gold-soft);
-      color: #7a5500;
+      color: #7c5701;
       font-weight: 800;
       margin-bottom: 12px;
     }
 
     .step h4 {
       margin: 0 0 8px;
-      font-size: 1.05rem;
+      font-size: 1.06rem;
     }
 
     .step p {
@@ -455,21 +480,20 @@
 
     .metric-label {
       color: var(--muted);
-      font-size: 0.8rem;
-      text-transform: uppercase;
+      font-size: 0.78rem;
       letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .metric-value {
       font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.04em;
+      font-weight: 900;
+      letter-spacing: -0.05em;
       margin-top: 8px;
     }
 
-    .cta-section {
-      margin-top: 30px;
-      background: linear-gradient(135deg, var(--blue), #1239ac);
+    .cta-panel {
+      background: linear-gradient(135deg, #1a5ce9, #1039b5);
       color: white;
       border-radius: 24px;
       padding: 24px 22px;
@@ -478,30 +502,31 @@
       justify-content: space-between;
       gap: 18px;
       flex-wrap: wrap;
-      box-shadow: 0 24px 34px rgba(21, 58, 201, 0.22);
+      margin-top: 30px;
+      box-shadow: 0 20px 34px rgba(23, 70, 210, 0.24);
     }
 
-    .cta-section h3 {
+    .cta-panel h3 {
       margin: 0 0 8px;
       font-size: clamp(1.7rem, 2vw, 2.4rem);
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
     }
 
-    .cta-section p {
+    .cta-panel p {
       margin: 0;
-      color: rgba(255,255,255,0.8);
+      color: rgba(255, 255, 255, 0.8);
     }
 
     .cta.light {
-      background: white;
+      background: rgba(255,255,255,0.96);
       color: var(--ink);
       box-shadow: none;
     }
 
     footer {
-      padding: 30px 0 50px;
       text-align: center;
       color: var(--muted);
+      padding: 34px 0 42px;
       font-size: 0.92rem;
     }
 
@@ -509,20 +534,13 @@
       .hero, .grid-3, .listings, .flow, .metrics {
         grid-template-columns: 1fr 1fr;
       }
-
-      .hero {
-        grid-template-columns: 1fr;
-      }
+      .hero { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
-      .grid-3, .listings, .flow, .metrics {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar {
-        align-items: flex-start;
-      }
+      .grid-3, .listings, .flow, .metrics { grid-template-columns: 1fr; }
+      .topbar { align-items: flex-start; }
+      .cta-panel { align-items: flex-start; }
     }
   </style>
 </head>
@@ -531,9 +549,16 @@
 
   <div class="container">
     <header class="topbar">
-      <a href="#" class="brand" aria-label="Wima home">
-        <span class="logo"><span></span></span>
-        <span>Wima</span>
+      <a href="#" class="brand" aria-label="WA home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="candle blue-left"></span>
+          <span class="candle gold-mid"></span>
+          <span class="candle red-right"></span>
+        </span>
+        <span class="brand-name">
+          <strong>WA</strong>
+          <small>Escrow</small>
+        </span>
       </a>
 
       <nav class="nav" aria-label="Main navigation">
@@ -543,19 +568,19 @@
         <a href="#safety">Safety</a>
       </nav>
 
-      <a href="#demo" class="cta">View prototype</a>
+      <a href="#demo" class="cta primary">View demo</a>
     </header>
 
     <main id="demo">
       <section class="hero">
         <div>
-          <span class="eyebrow">Digital trust infrastructure</span>
-          <h1>Escrow that actually feels safe.</h1>
-          <p class="lead">Wima helps buyers and sellers transact with confidence using accountable escrow, real verification, public meetup rules, and AI-assisted risk checks.</p>
+          <span class="eyebrow">Trust-first commerce</span>
+          <h1>Trade with confidence.</h1>
+          <p class="lead">WA Escrow helps buyers and sellers transact with clarity, proof, and accountability — using verified accounts, public meetup rules, and escrow protection from first chat to final handover.</p>
 
           <div class="buttons">
-            <a href="#listings" class="cta">Explore listings</a>
-            <a href="#features" class="button-alt">See the model</a>
+            <a href="#listings" class="cta primary">Explore listings</a>
+            <a href="#features" class="cta secondary">See the model</a>
           </div>
 
           <div class="mini-stats">
@@ -569,65 +594,65 @@
             </div>
             <div>
               <strong>48 hrs</strong>
-              inspection window
+              inspection period
             </div>
           </div>
         </div>
 
-        <aside class="hero-card" aria-label="Demo wallet and status">
+        <aside class="hero-panel" aria-label="Wallet preview">
           <div class="status-box">Protected escrow flow · demo mode</div>
 
-          <div class="wallet-card">
-            <div class="wallet-head">
-              <span>Wima Wallet</span>
+          <div class="panel-card">
+            <div class="card-head">
+              <span>WA Wallet</span>
               <span class="pill green">Non-custodial</span>
             </div>
             <div class="small">0x7a3F…9c1D · Celo · Balance</div>
             <div class="wallet-balance">800.00 USDC</div>
-            <div class="small">Passkey + recovery configured. Wima never holds your keys.</div>
+            <div class="small">Passkey + recovery configured. WA never holds your keys.</div>
           </div>
 
-          <div class="wallet-card">
-            <div class="wallet-head">
-              <span>Seller Risk</span>
+          <div class="panel-card">
+            <div class="card-head">
+              <span>Seller risk</span>
               <span class="pill gold">Low-risk</span>
             </div>
-            <div class="small">AI review: listing quality, no-show history, and verification checks passed.</div>
+            <div class="small">AI checks: listing quality, no-show history, and verification checks passed.</div>
           </div>
         </aside>
       </section>
 
       <section class="section" id="features">
         <div class="section-head">
-          <h2>Built for trust across every step</h2>
-          <span class="pill blue">Pre-seed concept demo</span>
+          <h2>Built for safer trade</h2>
+          <span class="pill blue">Prototype concept</span>
         </div>
 
         <div class="grid-3">
           <article class="card">
-            <div class="icon-box blue-box">01</div>
+            <div class="icon-box icon-blue">01</div>
             <h3>Verified identity</h3>
-            <p>Identity, liveness, and M-Pesa name checks reduce fraud before a trade can start.</p>
+            <p>Buyer and seller verification, liveness checks, and account history reduce fraud before any money moves.</p>
           </article>
 
           <article class="card">
-            <div class="icon-box gold-box">02</div>
+            <div class="icon-box icon-gold">02</div>
             <h3>Escrow with rules</h3>
-            <p>Buyer funds are locked until meetup inspection, collection, or delivery confirmation.</p>
+            <p>Funds are locked in escrow until the buyer inspects the goods or a delivery flow is confirmed.</p>
           </article>
 
           <article class="card">
-            <div class="icon-box red-box">03</div>
-            <h3>Safety-first handover</h3>
-            <p>QR code checks, public meetup guidance, and dispute pathways keep trade accountable.</p>
+            <div class="icon-box icon-red">03</div>
+            <h3>Handover accountability</h3>
+            <p>Public meetup guidance, QR confirmations, and dispute escalations reduce risky handoffs.</p>
           </article>
         </div>
       </section>
 
       <section class="section" id="listings">
         <div class="section-head">
-          <h2>Live demo listings</h2>
-          <span class="pill green">Receipt & AI checked</span>
+          <h2>Featured listings</h2>
+          <span class="pill green">AI & receipt checked</span>
         </div>
 
         <div class="listings">
@@ -636,19 +661,19 @@
             <div class="listing-body">
               <div class="listing-title">iPhone 13, 128 GB</div>
               <div class="meta">Westlands · Very good</div>
-              <div class="price-line">
+              <div class="price-row">
                 <div class="price">KSh 52,000</div>
-                <span class="pill gold">Seller Verified</span>
+                <span class="pill gold">Verified</span>
               </div>
             </div>
           </article>
 
           <article class="listing">
-            <div class="thumb" aria-hidden="true" style="background: linear-gradient(135deg, #e2f0ff, #e7e3ff, #f4dfcf);"></div>
+            <div class="thumb alt" aria-hidden="true"></div>
             <div class="listing-body">
               <div class="listing-title">Samsung Galaxy S22</div>
               <div class="meta">Kilimani · Like new</div>
-              <div class="price-line">
+              <div class="price-row">
                 <div class="price">KSh 48,000</div>
                 <span class="pill blue">Fast meetup</span>
               </div>
@@ -656,11 +681,11 @@
           </article>
 
           <article class="listing">
-            <div class="thumb" aria-hidden="true" style="background: linear-gradient(135deg, #dfe9ff, #fff0d1, #f5e6d5);"></div>
+            <div class="thumb alt2" aria-hidden="true"></div>
             <div class="listing-body">
               <div class="listing-title">MacBook Air M1</div>
               <div class="meta">Westlands · Very good</div>
-              <div class="price-line">
+              <div class="price-row">
                 <div class="price">KSh 85,000</div>
                 <span class="pill green">AI checked</span>
               </div>
@@ -678,25 +703,25 @@
           <div class="step">
             <div class="step-index">1</div>
             <h4>Verify</h4>
-            <p>Buyer and seller complete KYC and a liveness step before listing or locking funds.</p>
+            <p>Identity, liveness, and account checks happen before offer or escrow lock.</p>
           </div>
 
           <div class="step">
             <div class="step-index">2</div>
             <h4>Agree</h4>
-            <p>Chat, agree a price, and lock the deposit in escrow when both parties are ready.</p>
+            <p>Chat, agree a price, and lock funds in escrow by mutual confirmation.</p>
           </div>
 
           <div class="step">
             <div class="step-index">3</div>
             <h4>Meet</h4>
-            <p>Use a public place, scan QR codes, and inspect the item before accepting or walking away.</p>
+            <p>Use a safe public meetup, scan QR codes, and inspect before accepting.</p>
           </div>
 
           <div class="step">
             <div class="step-index">4</div>
             <h4>Resolve</h4>
-            <p>Funds release, disputes are reviewed, and bad actors are flagged by the platform.</p>
+            <p>Funds release, disputes are reviewed, and risky actors are flagged.</p>
           </div>
         </div>
       </section>
@@ -723,23 +748,23 @@
           </div>
 
           <div class="metric">
-            <div class="metric-label">Escrow lock</div>
+            <div class="metric-label">Lock period</div>
             <div class="metric-value">9h</div>
           </div>
         </div>
       </section>
 
-      <section class="cta-section">
+      <section class="cta-panel">
         <div>
-          <h3>Ready to show a trust-first product story.</h3>
-          <p>Concept demo for early feedback, investor storytelling, and prototype validation.</p>
+          <h3>Trust-first commerce, built for everyday trade.</h3>
+          <p>Concept demo for early product feedback and investor storytelling.</p>
         </div>
         <a href="#" class="cta light">Open demo</a>
       </section>
     </main>
 
     <footer>
-      Wima Escrow Marketplace · concept prototype for pre-seed validation
+      WA Escrow Marketplace · concept prototype for pre-seed validation
     </footer>
   </div>
 </body>
