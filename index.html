@@ -4,224 +4,117 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#07111d">
-  <meta name="description" content="WIMA is a trust-first marketplace concept for safer peer-to-peer trade in Kenya, with a five-step verification, escrow and inspection flow.">
-  <title>WIMA — Trade with confidence</title>
+  <meta name="description" content="WIMA is developing a five-step trust workflow for peer-to-peer technology trade in Kenya: identity checks, listing review, escrow, meetup verification, and inspection.">
+  <title>WIMA — Trust-first commerce for everyday tech</title>
   <link rel="preconnect" href="https://images.unsplash.com">
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #07111d;
-      --bg-soft: #0c1927;
-      --panel: #102033;
-      --panel-light: #14283b;
-      --line: rgba(195, 216, 236, .13);
-      --text: #f4f7fb;
-      --muted: #a4b4c5;
-      --gold: #e9bd67;
-      --gold-soft: rgba(233, 189, 103, .12);
-      --blue: #73adff;
-      --green: #64d7a4;
-      --shadow: 0 24px 70px rgba(0,0,0,.32);
-      --radius: 24px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--text);
-      background: radial-gradient(ellipse at 75% -10%, rgba(42,91,144,.34), transparent 42%),
-                  radial-gradient(ellipse at 0% 40%, rgba(174,130,54,.09), transparent 38%), var(--bg);
-      line-height: 1.6;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; width: 100%; }
-    .wrap { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
-    .demo-note { padding: 8px 16px; text-align: center; color: #e9d9b8; background: rgba(233,189,103,.09); border-bottom: 1px solid rgba(233,189,103,.18); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; }
-    header { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(7,17,29,.82); border-bottom: 1px solid var(--line); }
-    .topbar { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: inline-flex; gap: 11px; align-items: center; font-weight: 900; letter-spacing: .18em; }
-    .mark { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(233,189,103,.4); border-radius: 12px; color: var(--gold); background: linear-gradient(145deg, rgba(233,189,103,.2), rgba(233,189,103,.03)); box-shadow: 0 0 24px rgba(233,189,103,.1); }
-    nav { display: flex; gap: 6px; align-items: center; }
-    nav a { padding: 9px 12px; color: var(--muted); font-size: 13px; border-radius: 999px; }
-    nav a:hover { color: var(--text); background: rgba(255,255,255,.06); }
-    .button { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; border: 1px solid rgba(233,189,103,.38); background: linear-gradient(135deg, #f1ce84, #d6a64a); color: #17130b; font-size: 13px; font-weight: 850; box-shadow: 0 10px 28px rgba(214,166,74,.15); transition: transform .18s, filter .18s; }
-    .button:hover { transform: translateY(-2px); filter: brightness(1.05); }
-    .button.secondary { background: rgba(255,255,255,.04); color: var(--text); border-color: var(--line); box-shadow: none; }
-    .hero { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 54px; padding: 76px 0 68px; }
-    .eyebrow { display: inline-flex; gap: 8px; align-items: center; color: var(--gold); font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
-    .eyebrow:before { content: ""; width: 22px; height: 1px; background: var(--gold); }
-    h1 { max-width: 700px; margin: 18px 0; font-size: clamp(48px, 7vw, 82px); line-height: .98; letter-spacing: -.075em; }
-    h1 em { color: var(--gold); font-style: normal; }
-    .lead { max-width: 590px; color: #b7c5d3; font-size: 17px; line-height: 1.8; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-    .proofline { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 32px; color: var(--muted); font-size: 12px; }
-    .proofline span:before { content: "✓"; color: var(--green); margin-right: 7px; font-weight: 900; }
-    .hero-art { position: relative; min-height: 470px; }
-    .hero-photo { position: absolute; inset: 14px 36px 36px 26px; overflow: hidden; border: 1px solid rgba(255,255,255,.15); border-radius: 30px; background: #192838; box-shadow: var(--shadow); }
-    .hero-photo img { height: 100%; object-fit: cover; filter: saturate(.78) brightness(.77); }
-    .hero-photo:after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,17,28,.02), rgba(8,17,28,.78)); }
-    .hero-label { position: absolute; z-index: 2; left: 52px; bottom: 62px; max-width: 290px; }
-    .hero-label small { color: var(--gold); text-transform: uppercase; letter-spacing: .15em; font-weight: 800; }
-    .hero-label strong { display: block; margin-top: 8px; font-size: 23px; line-height: 1.2; }
-    .trust-float { position: absolute; z-index: 3; right: 0; top: 52px; width: 205px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: rgba(13,28,44,.88); backdrop-filter: blur(14px); box-shadow: var(--shadow); }
-    .trust-float .check { color: var(--green); font-size: 22px; }
-    .trust-float b { display: block; margin: 7px 0 3px; }
-    .trust-float small { color: var(--muted); }
-    .gold-orbit { position: absolute; z-index: 2; width: 92px; height: 92px; left: -4px; bottom: 10px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(233,189,103,.58); color: var(--gold); background: rgba(10,24,38,.85); box-shadow: 0 0 40px rgba(233,189,103,.15); font-size: 11px; font-weight: 850; letter-spacing: .12em; text-align: center; }
-    .section { padding: 72px 0; border-top: 1px solid var(--line); }
-    .section-heading { max-width: 720px; margin-bottom: 34px; }
-    .section-heading h2 { margin: 12px 0; font-size: clamp(34px, 4vw, 52px); line-height: 1.08; letter-spacing: -.06em; }
-    .section-heading p { max-width: 670px; color: var(--muted); margin: 0; }
-    .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .product { overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: linear-gradient(150deg, rgba(255,255,255,.06), rgba(255,255,255,.015)); transition: transform .2s, border-color .2s; }
-    .product:hover { transform: translateY(-4px); border-color: rgba(233,189,103,.4); }
-    .product-image { height: 245px; overflow: hidden; background: #162536; }
-    .product-image img { height: 100%; object-fit: cover; transition: transform .5s; }
-    .product:hover img { transform: scale(1.04); }
-    .product-info { padding: 18px 20px 20px; }
-    .product-info h3 { margin: 0 0 4px; font-size: 17px; }
-    .product-info p { margin: 0; color: var(--muted); font-size: 13px; }
-    .tag { display: inline-block; margin-top: 13px; padding: 5px 9px; color: var(--gold); border: 1px solid rgba(233,189,103,.24); background: var(--gold-soft); border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .flow-intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 30px; }
-    .flow-intro .section-heading { margin: 0; }
-    .flow-intro .aside { max-width: 320px; color: var(--muted); font-size: 13px; }
-    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; counter-reset: flow; }
-    .step { position: relative; min-height: 255px; padding: 22px 18px; border: 1px solid var(--line); border-radius: 20px; background: linear-gradient(160deg, rgba(21,42,62,.92), rgba(11,25,40,.9)); }
-    .step:before { counter-increment: flow; content: "0" counter(flow); display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; border: 1px solid rgba(233,189,103,.35); background: var(--gold-soft); color: var(--gold); font-size: 12px; font-weight: 900; }
-    .step:not(:last-child):after { content: "→"; position: absolute; right: -14px; top: 28px; z-index: 2; color: var(--gold); font-size: 20px; }
-    .step h3 { margin: 22px 0 9px; font-size: 17px; }
-    .step p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
-    .stack { margin-top: 14px; color: #d7c08d; font-size: 10px; font-weight: 750; line-height: 1.6; text-transform: uppercase; letter-spacing: .07em; }
-    .about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 44px; align-items: start; }
-    .about-copy { color: var(--muted); line-height: 1.85; }
-    .about-copy strong { color: var(--text); }
-    .architecture { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .architecture-card { padding: 18px; border-radius: 17px; border: 1px solid var(--line); background: rgba(255,255,255,.035); }
-    .architecture-card b { display: block; margin-bottom: 6px; color: var(--gold); font-size: 13px; }
-    .architecture-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
-    .architecture-note { grid-column: 1 / -1; color: #b8c5d2; font-size: 11px; padding: 12px 14px; border-left: 2px solid var(--gold); background: rgba(233,189,103,.06); }
-    .closing { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 34px; border: 1px solid rgba(233,189,103,.25); border-radius: 28px; background: radial-gradient(ellipse at 85% 50%, rgba(233,189,103,.14), transparent 45%), linear-gradient(135deg, #14283c, #0d1b2a); }
-    .closing h2 { max-width: 650px; margin: 0; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; letter-spacing: -.05em; }
-    .closing h2 span { color: var(--gold); }
-    footer { padding: 34px 0 46px; color: var(--muted); font-size: 12px; }
-    .footer-inner { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; }
-    @media (max-width: 900px) {
-      .hero { gap: 28px; }
-      .flow { grid-template-columns: repeat(2, 1fr); }
-      .step:not(:last-child):after { display: none; }
-      .products { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .wrap { width: min(100% - 28px, 1160px); }
-      nav { display: none; }
-      .topbar { min-height: 68px; }
-      .hero { grid-template-columns: 1fr; padding: 52px 0 46px; }
-      h1 { font-size: clamp(48px, 14vw, 68px); }
-      .hero-art { min-height: 360px; }
-      .hero-photo { inset: 12px 16px 30px 12px; }
-      .hero-label { left: 30px; bottom: 54px; }
-      .trust-float { right: 0; top: 24px; width: 170px; padding: 14px; }
-      .gold-orbit { width: 72px; height: 72px; left: 0; bottom: 0; }
-      .section { padding: 54px 0; }
-      .flow { grid-template-columns: 1fr; }
-      .step { min-height: auto; }
-      .products { grid-template-columns: 1fr; }
-      .product-image { height: 250px; }
-      .about-grid { grid-template-columns: 1fr; gap: 24px; }
-      .architecture { grid-template-columns: 1fr; }
-      .architecture-note { grid-column: auto; }
-      .closing { align-items: flex-start; flex-direction: column; padding: 25px; }
-    }
-    @media (prefers-reduced-motion: reduce) { *, *:before, *:after { scroll-behavior: auto !important; transition: none !important; } }
+    :root{color-scheme:dark;--bg:#07111d;--surface:#0d1b2a;--panel:#112337;--panel2:#162b40;--line:rgba(195,216,236,.14);--text:#f4f7fb;--muted:#a4b4c5;--gold:#e9bd67;--gold-soft:rgba(233,189,103,.12);--blue:#8bbaff;--green:#73d9aa;--red:#ff9b9b;--shadow:0 24px 70px rgba(0,0,0,.32);--radius:22px;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;color:var(--text);background:radial-gradient(ellipse at 75% -10%,rgba(42,91,144,.3),transparent 42%),radial-gradient(ellipse at 0% 40%,rgba(174,130,54,.08),transparent 38%),var(--bg);line-height:1.6}a{color:inherit;text-decoration:none}img{display:block;width:100%}.wrap{width:min(1160px,calc(100% - 40px));margin:0 auto}.demo-note{padding:8px 16px;text-align:center;color:#e9d9b8;background:rgba(233,189,103,.09);border-bottom:1px solid rgba(233,189,103,.18);font-size:10px;letter-spacing:.11em;text-transform:uppercase}.site-header{position:sticky;top:0;z-index:20;backdrop-filter:blur(18px);background:rgba(7,17,29,.88);border-bottom:1px solid var(--line)}.topbar{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:inline-flex;gap:11px;align-items:center;font-weight:900;letter-spacing:.18em}.mark{width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(233,189,103,.4);border-radius:12px;color:var(--gold);background:linear-gradient(145deg,rgba(233,189,103,.2),rgba(233,189,103,.03))}nav{display:flex;gap:6px;align-items:center}nav a{padding:9px 12px;color:var(--muted);font-size:13px;border-radius:999px}nav a:hover,nav a:focus-visible{color:var(--text);background:rgba(255,255,255,.06)}.button{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:999px;border:1px solid rgba(233,189,103,.38);background:linear-gradient(135deg,#f1ce84,#d6a64a);color:#17130b;font-size:13px;font-weight:850;box-shadow:0 10px 28px rgba(214,166,74,.15);transition:transform .18s,filter .18s}.button:hover{transform:translateY(-2px);filter:brightness(1.05)}.button.secondary{background:rgba(255,255,255,.04);color:var(--text);border-color:var(--line);box-shadow:none}.hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:54px;padding:70px 0 66px}.eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--gold);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.eyebrow:before{content:"";width:22px;height:1px;background:var(--gold)}h1{max-width:700px;margin:18px 0;font-size:clamp(48px,7vw,82px);line-height:.98;letter-spacing:-.075em}h1 em{color:var(--gold);font-style:normal}.lead{max-width:600px;color:#b7c5d3;font-size:17px;line-height:1.8}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}.proofline{display:flex;flex-wrap:wrap;gap:18px;margin-top:30px;color:var(--muted);font-size:12px}.proofline span:before{content:"✓";color:var(--green);margin-right:7px;font-weight:900}.hero-art{position:relative;min-height:455px}.hero-photo{position:absolute;inset:12px 36px 34px 26px;overflow:hidden;border:1px solid rgba(255,255,255,.15);border-radius:30px;background:#192838;box-shadow:var(--shadow)}.hero-photo img{height:100%;object-fit:cover;filter:saturate(.78) brightness(.77)}.hero-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,17,28,.02),rgba(8,17,28,.78))}.hero-label{position:absolute;z-index:2;left:52px;bottom:58px;max-width:290px}.hero-label small{color:var(--gold);text-transform:uppercase;letter-spacing:.15em;font-weight:800}.hero-label strong{display:block;margin-top:8px;font-size:23px;line-height:1.2}.trust-float{position:absolute;z-index:3;right:0;top:45px;width:210px;padding:17px;border:1px solid var(--line);border-radius:18px;background:rgba(13,28,44,.91);backdrop-filter:blur(14px);box-shadow:var(--shadow)}.trust-float .check{color:var(--green);font-size:22px}.trust-float b{display:block;margin:5px 0}.trust-float small{color:var(--muted)}.section{padding:68px 0;border-top:1px solid var(--line)}.section-heading{max-width:740px;margin-bottom:32px}.section-heading h2{margin:11px 0;font-size:clamp(34px,4vw,52px);line-height:1.08;letter-spacing:-.06em}.section-heading p{max-width:690px;color:var(--muted);margin:0}.products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.product{overflow:hidden;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,255,255,.06),rgba(255,255,255,.015));transition:transform .2s,border-color .2s}.product:hover{transform:translateY(-4px);border-color:rgba(233,189,103,.4)}.product-image{height:245px;overflow:hidden;background:#162536}.product-image img{height:100%;object-fit:cover;transition:transform .5s}.product:hover img{transform:scale(1.04)}.product-info{padding:18px 20px 20px}.product-info h3{margin:0 0 4px;font-size:17px}.product-info p{margin:0;color:var(--muted);font-size:13px}.tag{display:inline-block;margin-top:13px;padding:5px 9px;color:var(--gold);border:1px solid rgba(233,189,103,.24);background:var(--gold-soft);border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.flow-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:25px}.flow-head .section-heading{margin:0}.flow-aside{max-width:340px;color:var(--muted);font-size:13px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;counter-reset:flow}.step{position:relative;min-height:250px;padding:20px 17px;border:1px solid var(--line);border-radius:19px;background:linear-gradient(160deg,rgba(21,42,62,.92),rgba(11,25,40,.9));transition:border-color .2s,transform .2s}.step:before{counter-increment:flow;content:"0" counter(flow);display:grid;place-items:center;width:37px;height:37px;border-radius:12px;border:1px solid rgba(233,189,103,.35);background:var(--gold-soft);color:var(--gold);font-size:12px;font-weight:900}.step:not(:last-child):after{content:"→";position:absolute;right:-13px;top:25px;z-index:2;color:var(--gold);font-size:19px}.step h3{margin:19px 0 8px;font-size:16px}.step p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}.stack{margin-top:12px;color:#d7c08d;font-size:9px;font-weight:750;line-height:1.6;text-transform:uppercase;letter-spacing:.06em}.step-select{display:block;margin-top:12px;padding:0;border:0;background:none;color:var(--blue);font:inherit;font-size:11px;font-weight:800;cursor:pointer}.step-select:hover{text-decoration:underline}.demo-shell{display:grid;grid-template-columns:.75fr 1.25fr;gap:18px;margin-top:24px;padding:18px;border:1px solid var(--line);border-radius:24px;background:rgba(11,25,40,.72)}.demo-controls,.demo-detail{padding:20px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.025)}.demo-controls h3,.demo-detail h3{margin:0 0 7px;font-size:17px}.subcopy{margin:0 0 16px;color:var(--muted);font-size:12px}.role-switch{display:flex;gap:8px;margin-bottom:17px}.role-switch button{flex:1;padding:10px;border:1px solid var(--line);border-radius:11px;color:var(--muted);background:transparent;font:inherit;font-size:12px;font-weight:800;cursor:pointer}.role-switch button[aria-pressed="true"]{color:var(--text);border-color:rgba(233,189,103,.42);background:var(--gold-soft)}.demo-steps{display:grid;gap:7px}.demo-step{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;text-align:left;border:1px solid transparent;border-radius:11px;color:var(--muted);background:transparent;font:inherit;font-size:11px;cursor:pointer}.demo-step:hover{background:rgba(255,255,255,.04)}.demo-step[aria-current="step"]{color:var(--text);border-color:var(--line);background:rgba(255,255,255,.06)}.demo-step span{display:grid;place-items:center;width:24px;height:24px;flex:none;border-radius:8px;color:var(--gold);background:var(--gold-soft);font-weight:900}.state-top{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.state-pill{padding:5px 9px;border:1px solid rgba(115,217,170,.25);border-radius:999px;color:var(--green);background:rgba(115,217,170,.08);font-size:9px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}.state-pill.concept{color:var(--gold);border-color:rgba(233,189,103,.25);background:var(--gold-soft)}.demo-detail h3{margin-top:17px;font-size:22px}.demo-description{max-width:650px;color:var(--muted);font-size:13px}.actor-card{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035)}.actor-card b{display:block;font-size:12px}.actor-card p{margin:3px 0 0;color:var(--muted);font-size:11px}.actor-icon{display:grid;place-items:center;width:40px;height:40px;flex:none;border-radius:12px;color:var(--gold);background:var(--gold-soft)}.demo-caveat{margin:14px 0 0;color:#a9b7c5;font-size:10px}.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:start}.about-copy{color:var(--muted);line-height:1.85}.about-copy strong{color:var(--text)}.architecture{display:grid;grid-template-columns:1fr 1fr;gap:12px}.architecture-card{padding:18px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.035)}.architecture-card b{display:block;margin-bottom:6px;color:var(--gold);font-size:13px}.architecture-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.7}.architecture-note{grid-column:1/-1;color:#c3ced8;font-size:11px;padding:13px 15px;border-left:2px solid var(--gold);background:rgba(233,189,103,.06)}.closing{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:34px;border:1px solid rgba(233,189,103,.25);border-radius:28px;background:radial-gradient(ellipse at 85% 50%,rgba(233,189,103,.14),transparent 45%),linear-gradient(135deg,#14283c,#0d1b2a)}.closing h2{max-width:650px;margin:0;font-size:clamp(28px,4vw,42px);line-height:1.15;letter-spacing:-.05em}.closing h2 span{color:var(--gold)}footer{padding:32px 0 44px;color:var(--muted);font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:950px){.hero{gap:28px}.flow{grid-template-columns:repeat(3,1fr)}.step:not(:last-child):after{display:none}.products{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:680px){.wrap{width:min(100% - 28px,1160px)}nav{display:none}.topbar{min-height:66px}.topbar>.button{padding:10px 13px;font-size:11px}.hero{grid-template-columns:1fr;padding:48px 0 42px}h1{font-size:clamp(48px,14vw,68px)}.hero-art{min-height:350px}.hero-photo{inset:10px 15px 28px 10px}.hero-label{left:28px;bottom:48px}.trust-float{right:0;top:21px;width:174px;padding:13px}.section{padding:52px 0}.flow{grid-template-columns:1fr}.step{min-height:auto}.products{grid-template-columns:1fr}.product-image{height:250px}.demo-shell{grid-template-columns:1fr;padding:11px}.about-grid{grid-template-columns:1fr;gap:20px}.architecture{grid-template-columns:1fr}.architecture-note{grid-column:auto}.closing{align-items:flex-start;flex-direction:column;padding:24px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
 <body>
-  <div class="demo-note">WIMA concept demo · No real funds, live KYC, or production escrow are used</div>
-  <header>
-    <div class="wrap topbar">
-      <a class="brand" href="#home" aria-label="WIMA home"><span class="mark" aria-hidden="true">W</span><span>WIMA</span></a>
-      <nav aria-label="Main navigation">
-        <a href="#marketplace">Marketplace</a><a href="#how-it-works">How it works</a><a href="#about">About WIMA</a>
-      </nav>
-      <a class="button" href="#how-it-works">Explore the flow</a>
-    </div>
-  </header>
-
+  <div class="demo-note">Investor concept demo · Interface simulation only · No live KYC, payments, wallets, or escrow</div>
+  <header class="site-header"><div class="wrap topbar">
+    <a class="brand" href="#home" aria-label="WIMA home"><span class="mark" aria-hidden="true">W</span><span>WIMA</span></a>
+    <nav aria-label="Main navigation"><a href="#marketplace">Marketplace</a><a href="#how-it-works">How it works</a><a href="#about">About WIMA</a><a href="#architecture">Technology</a></nav>
+    <a class="button" href="#how-it-works">Explore the experience</a>
+  </div></header>
   <main id="home">
     <section class="wrap hero">
-      <div>
-        <span class="eyebrow">Trust-first commerce for Kenya</span>
-        <h1>Better trades.<br><em>Built on trust.</em></h1>
-        <p class="lead">WIMA brings buyers and sellers together for safer peer-to-peer trade in phones, laptops, smartwatches, and everyday technology. Verify people, check listings, secure the payment, meet with confidence, and inspect before release.</p>
-        <div class="hero-actions"><a class="button" href="#marketplace">Explore the marketplace</a><a class="button secondary" href="#about">Meet WIMA</a></div>
-        <div class="proofline"><span>Buyer and seller clarity</span><span>Escrow-first concept</span><span>Inspection before release</span></div>
+      <div><span class="eyebrow">Trust-first commerce for Kenya</span><h1>Better trades.<br><em>Built on trust.</em></h1>
+        <p class="lead">WIMA is designing a safer way to trade phones, laptops, smartwatches, and everyday technology. A clear five-step journey helps both sides know what is verified, what happens next, and when a trade is complete.</p>
+        <div class="hero-actions"><a class="button" href="#marketplace">Explore product categories</a><a class="button secondary" href="#how-it-works">See the five steps</a></div>
+        <div class="proofline"><span>Buyer and seller roles are explicit</span><span>Inspection before release</span><span>Concept status stated clearly</span></div>
       </div>
-      <div class="hero-art" aria-label="Featured smartphone product photograph">
-        <div class="hero-photo"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Modern smartphone displayed against a clean background" fetchpriority="high"></div>
-        <div class="hero-label"><small>Confidence, at every step</small><strong>A safer way to trade the tech you use every day.</strong></div>
-        <div class="trust-float"><span class="check">✓</span><b>Protected by process</b><small>Identity → escrow → meetup → inspection</small></div>
-        <div class="gold-orbit">WIMA<br>TRUST LAYER</div>
-      </div>
+      <div class="hero-art" aria-label="Featured smartphone product photograph"><div class="hero-photo"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Modern smartphone displayed against a clean background" fetchpriority="high"></div><div class="hero-label"><small>Confidence, at every step</small><strong>A more considered way to trade everyday tech.</strong></div><div class="trust-float"><span class="check">✓</span><b>Designed around clear handovers</b><small>Verify → review → secure → meet → inspect</small></div></div>
     </section>
 
-    <section class="section" id="marketplace">
-      <div class="wrap">
-        <div class="section-heading"><span class="eyebrow">Curated categories</span><h2>Everyday tech, traded with more confidence.</h2><p>From a phone upgrade to a laptop for work, WIMA is designed around the items people rely on—and the checks that make a peer-to-peer purchase feel safer.</p></div>
-        <div class="products">
-          <article class="product"><div class="product-image"><img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Smartphone close-up" loading="lazy"></div><div class="product-info"><h3>Smartphones</h3><p>Compare condition, proof of ownership, and seller details.</p><span class="tag">Identity + listing checks</span></div></article>
-          <article class="product"><div class="product-image"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Laptop on a desk" loading="lazy"></div><div class="product-info"><h3>Laptops</h3><p>Review the device details and inspect before confirming a trade.</p><span class="tag">Escrow-ready concept</span></div></article>
-          <article class="product"><div class="product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Modern wristwatch product photograph" loading="lazy"></div><div class="product-info"><h3>Smartwatches & more</h3><p>Explore wearables, audio, tablets, gaming gear, and other tech.</p><span class="tag">More categories ahead</span></div></article>
-        </div>
+    <section class="section" id="marketplace"><div class="wrap">
+      <div class="section-heading"><span class="eyebrow">Product categories</span><h2>Everyday technology, with a clearer path to trade.</h2><p>WIMA is focused on the devices people rely on—and on making the steps around a peer-to-peer purchase easier to understand.</p></div>
+      <div class="products">
+        <article class="product"><div class="product-image"><img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Smartphone product photograph" loading="lazy"></div><div class="product-info"><h3>Smartphones</h3><p>Review item details, seller information, and condition before arranging a handover.</p><span class="tag">Listing review concept</span></div></article>
+        <article class="product"><div class="product-image"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Laptop displayed on a desk" loading="lazy"></div><div class="product-info"><h3>Laptops</h3><p>Give buyers time to check the device against the information in its listing.</p><span class="tag">Inspect before acceptance</span></div></article>
+        <article class="product"><div class="product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Wristwatch product photograph" loading="lazy"></div><div class="product-info"><h3>Wearables & more</h3><p>Explore smartwatches, audio, tablets, gaming gear, and other consumer technology.</p><span class="tag">More categories planned</span></div></article>
       </div>
-    </section>
+    </div></section>
 
-    <section class="section" id="how-it-works">
-      <div class="wrap">
-        <div class="flow-intro">
-          <div class="section-heading"><span class="eyebrow">Five-step protection</span><h2>One clear journey.<br>From signup to release.</h2></div>
-          <p class="aside">Each step gives the buyer and seller a clear status, a defined next action, and a record of what happened.</p>
-        </div>
-        <div class="flow">
-          <article class="step"><h3>KYC & identity</h3><p>Buyer and seller complete identity and liveness verification before they can transact. Verification status is visible without exposing sensitive identity details.</p><div class="stack">Planned stack · Privy onboarding + KYC / liveness provider</div></article>
-          <article class="step"><h3>AI listing check</h3><p>Product photos and listing details are screened for category fit, duplicate imagery, and risk signals. Uncertain listings can be routed for human review.</p><div class="stack">Planned stack · Hives AI checks + review queue</div></article>
-          <article class="step"><h3>Smart-contract escrow</h3><p>When both parties agree, the buyer funds the transaction. The concept uses USDC on Celo; funds remain governed by escrow conditions until the required confirmation.</p><div class="stack">Planned stack · Solidity escrow + USDC on Celo + Privy wallet</div></article>
-          <article class="step"><h3>Meetup QR check</h3><p>At an agreed public location, buyer and seller verify the handover using time-limited QR confirmations. WIMA records the meetup milestone before inspection.</p><div class="stack">Planned stack · Secure QR tokens + WIMA transaction API</div></article>
-          <article class="step"><h3>Inspect & release</h3><p>The buyer checks the item against its listing. Acceptance triggers the release step; a mismatch can enter a documented dispute path instead.</p><div class="stack">Planned stack · Escrow state update + buyer confirmation + audit trail</div></article>
-        </div>
+    <section class="section" id="how-it-works"><div class="wrap">
+      <div class="flow-head"><div class="section-heading"><span class="eyebrow">Five-step trust journey</span><h2>One clear experience.<br>From verification to release.</h2><p>The flow is designed to give buyers and sellers distinct responsibilities, visible transaction stages, and a documented path if something does not match.</p></div><p class="flow-aside">Select a step below to explore the interface simulation. The interactive panel demonstrates proposed UX only; it does not call production services.</p></div>
+      <div class="flow" aria-label="WIMA's five-step workflow">
+        <article class="step"><h3>KYC & identity</h3><p>Buyer and seller complete identity and liveness verification before a trade can proceed. The product should expose verification status—not private identity documents.</p><div class="stack">Proposed: Privy onboarding + KYC / liveness provider</div><button class="step-select" data-step="0">Explore this step →</button></article>
+        <article class="step"><h3>AI listing check</h3><p>Listing photos and details are screened for image quality, category fit, duplicate imagery, and risk signals. Flags support review; they are not proof of authenticity.</p><div class="stack">Proposed: Hives AI + human review queue</div><button class="step-select" data-step="1">Explore this step →</button></article>
+        <article class="step"><h3>Smart-contract escrow</h3><p>After the parties agree, the buyer funds the transaction. The proposed flow uses USDC on Celo; escrow conditions govern when funds may be released.</p><div class="stack">Proposed: Solidity escrow + USDC on Celo + Privy</div><button class="step-select" data-step="2">Explore this step →</button></article>
+        <article class="step"><h3>Meetup QR confirmation</h3><p>At an agreed public location, both parties confirm the handover using time-limited QR codes. The meetup milestone is recorded before inspection.</p><div class="stack">Proposed: Signed QR tokens + WIMA transaction API</div><button class="step-select" data-step="3">Explore this step →</button></article>
+        <article class="step"><h3>Inspection & release</h3><p>The buyer checks the item against the listing. Acceptance requests release; a mismatch follows a documented dispute process rather than an automatic payout.</p><div class="stack">Proposed: Escrow state + buyer confirmation + audit trail</div><button class="step-select" data-step="4">Explore this step →</button></article>
       </div>
-    </section>
 
-    <section class="section" id="about">
-      <div class="wrap about-grid">
-        <div class="section-heading"><span class="eyebrow">About WIMA</span><h2>Trust is not a badge. It is the whole journey.</h2></div>
-        <div class="about-copy">
-          <p><strong>WIMA is a trust-first marketplace concept for peer-to-peer commerce in Kenya.</strong> We are designing a safer way for people to buy and sell phones, laptops, smartwatches, and other everyday technology—bringing identity checks, listing review, payment protection, meetup proof, and inspection into one connected experience.</p>
-          <p>Our goal is to make the next step obvious for both sides of a deal: the buyer knows when funds are protected and when to inspect; the seller knows when the buyer is verified and when payment can be released. Local payment access matters, so the planned payment journey includes an M-Pesa on-ramp provider alongside wallet support and USDC settlement on Celo.</p>
-          <p>We are building the concept around a simple principle: <strong>the item should be inspected before escrow is released.</strong> WIMA is intended to support clearer handovers and more accountable trade—not to claim that risk can be eliminated.</p>
+      <div class="demo-shell" aria-label="Interactive WIMA flow concept">
+        <div class="demo-controls"><h3>Explore the transaction</h3><p class="subcopy">Choose a role and a stage to see the proposed next action.</p>
+          <div class="role-switch" role="group" aria-label="Choose demo role"><button type="button" data-role="buyer" aria-pressed="true">Buyer view</button><button type="button" data-role="seller" aria-pressed="false">Seller view</button></div>
+          <div class="demo-steps" role="group" aria-label="Choose transaction step"><button class="demo-step" type="button" data-demo-step="0" aria-current="step"><span>1</span>KYC & identity</button><button class="demo-step" type="button" data-demo-step="1"><span>2</span>AI listing check</button><button class="demo-step" type="button" data-demo-step="2"><span>3</span>Escrow funding</button><button class="demo-step" type="button" data-demo-step="3"><span>4</span>Meetup QR</button><button class="demo-step" type="button" data-demo-step="4"><span>5</span>Inspect & release</button></div>
         </div>
+        <div class="demo-detail" aria-live="polite"><div class="state-top"><span class="eyebrow" id="stage-label">Stage 01 · onboarding</span><span class="state-pill concept">Concept simulation</span></div><h3 id="stage-title">Start with verified participants.</h3><p class="demo-description" id="stage-description">Both people establish an account and complete the required checks before a transaction begins. WIMA should share only the verification result needed for the trade.</p><div class="actor-card"><div><b id="actor-title">Buyer next action · complete identity checks</b><p id="actor-copy">The buyer completes the verification flow. Sensitive documents stay with the verification provider, subject to the final integration and policy.</p></div><span class="actor-icon" aria-hidden="true">01</span></div><p class="demo-caveat">Illustrative interface only. Statuses are not connected to KYC, AI, M-Pesa, Privy, a wallet, QR scanning, or Celo.</p></div>
       </div>
-    </section>
+    </div></section>
 
-    <section class="section" id="architecture">
-      <div class="wrap">
-        <div class="section-heading"><span class="eyebrow">Under the hood</span><h2>A practical trust stack for local commerce.</h2><p>The following tools describe the proposed product architecture. They are roadmap and demo references, not a claim that every integration is already live.</p></div>
-        <div class="architecture">
-          <article class="architecture-card"><b>Identity & wallet</b><p>Privy is the proposed wallet and onboarding layer. A separate KYC and liveness provider would verify identity; only the minimum required verification status should be shared with the marketplace.</p></article>
-          <article class="architecture-card"><b>AI listing review</b><p>Hives AI is the proposed listing-screening service for image and listing signals. Risk flags should support review decisions—not be presented as proof that an item is authentic.</p></article>
-          <article class="architecture-card"><b>Escrow & settlement</b><p>The planned escrow uses a Solidity smart contract on Celo with USDC as the settlement asset. Contract conditions, dispute handling, security review, and operational controls must be completed before real funds are used.</p></article>
-          <article class="architecture-card"><b>Local payment access</b><p>An M-Pesa on-ramp provider would connect local payment flows to wallet funding. Provider, rates, availability, custody, and regulatory requirements must be confirmed before launch.</p></article>
-          <article class="architecture-card"><b>WIMA transaction API</b><p>The application API coordinates order states, QR meetup confirmation, notifications, and an auditable event history while keeping private identity data protected.</p></article>
-          <div class="architecture-note">Demo disclaimer: this website is a concept prototype. It does not perform KYC, AI analysis, M-Pesa payments, wallet transactions, QR verification, or on-chain escrow.</div>
-        </div>
-      </div>
-    </section>
+    <section class="section" id="about"><div class="wrap about-grid"><div class="section-heading"><span class="eyebrow">About WIMA</span><h2>Trust is not a badge. It is the whole journey.</h2></div><div class="about-copy"><p><strong>WIMA is developing a trust-first marketplace concept for peer-to-peer commerce in Kenya.</strong> We are designing a safer way to buy and sell phones, laptops, smartwatches, and other everyday technology by bringing identity checks, listing review, payment protection, meetup proof, and inspection into one connected experience.</p><p>Our goal is to make the next step clear for both sides of a deal: the buyer can see when funds are intended to be protected and when to inspect; the seller can see what must happen before settlement. The proposed payment journey includes an M-Pesa on-ramp provider alongside wallet support and USDC settlement on Celo, subject to provider, product, security, and regulatory validation.</p><p>Our guiding principle is straightforward: <strong>the item should be inspected before escrow is released.</strong> WIMA is intended to make handovers clearer and more accountable—not to claim that risk can be eliminated.</p></div></div></section>
 
-    <section class="wrap" style="padding: 20px 0 72px">
-      <div class="closing"><h2>WIMA makes the trade clearer—<span>before, during, and after the meetup.</span></h2><a class="button" href="#how-it-works">See the five steps</a></div>
-    </section>
+    <section class="section" id="architecture"><div class="wrap"><div class="section-heading"><span class="eyebrow">Proposed technology architecture</span><h2>Designed for real-world trust and accountable settlement.</h2><p>These are proposed components, not representations of deployed integrations. Product, security, provider, and legal validation are required before real transactions.</p></div><div class="architecture">
+      <article class="architecture-card"><b>Identity & wallet · Privy</b><p>Privy is the proposed embedded wallet and onboarding provider. A separately selected KYC and liveness service would verify identity; the marketplace should receive only the necessary status and references.</p></article>
+      <article class="architecture-card"><b>AI listing review · Hives AI</b><p>Hives AI is the proposed listing-screening provider for image and listing signals. Risk flags should feed a human review path and must not be presented as proof that an item is genuine.</p></article>
+      <article class="architecture-card"><b>Escrow · Solidity, Celo & USDC</b><p>The proposed escrow is a Solidity smart contract on Celo with USDC as the settlement asset. Contract design, independent security review, dispute rules, and operational controls are prerequisites to production.</p></article>
+      <article class="architecture-card"><b>Local access · M-Pesa on-ramp</b><p>An M-Pesa on-ramp provider would connect local payment flows to wallet funding. Provider, rates, settlement timing, reversals, custody, and regulatory obligations must be confirmed before launch.</p></article>
+      <article class="architecture-card"><b>WIMA transaction API</b><p>The planned application API coordinates transaction state, signed and expiring meetup QR challenges, provider callbacks, notifications, and an append-only event history. Sensitive identity data should be minimized and access-controlled.</p></article>
+      <div class="architecture-note"><strong>Demo status:</strong> This site is a product concept and UX simulation. It does not perform KYC or AI checks, initiate M-Pesa payments, connect Privy wallets, scan meetup QR codes, or create/release on-chain escrow funds. Product metrics and integrations are not claimed as live.</div>
+    </div></div></section>
+
+    <section class="wrap" style="padding:20px 0 68px"><div class="closing"><h2>WIMA makes the trade clearer—<br><span>before, during, and after the meetup.</span></h2><a class="button" href="#how-it-works">Explore the five steps</a></div></section>
   </main>
+  <footer><div class="wrap footer-inner"><span>WIMA · Trust-first commerce for everyday tech</span><span>Product concept · Kenya · Proposed integrations are subject to validation</span></div></footer>
 
-  <footer><div class="wrap footer-inner"><span>WIMA · Trust-first commerce for everyday tech</span><span>Concept prototype · Kenya</span></div></footer>
+  <script>
+    (() => {
+      const stages = [
+        {label:"Stage 01 · onboarding",title:"Start with verified participants.",buyerTitle:"Buyer next action · complete identity checks",buyerCopy:"The buyer completes the verification flow. Sensitive documents stay with the verification provider, subject to the final integration and policy.",sellerTitle:"Seller next action · complete identity checks",sellerCopy:"The seller completes the same verification requirements before listing or accepting a transaction."},
+        {label:"Stage 02 · listing review",title:"Review the item before it is offered.",buyerTitle:"Buyer view · review listing signals",buyerCopy:"The buyer can see the listing details and review status. An AI flag is a prompt for further review, not a guarantee of authenticity.",sellerTitle:"Seller next action · submit item details",sellerCopy:"The seller submits clear item photos and accurate details. A flagged listing can be corrected or referred for human review."},
+        {label:"Stage 03 · escrow funding",title:"Agree terms before funds are committed.",buyerTitle:"Buyer next action · confirm and fund",buyerCopy:"After reviewing the terms, the buyer authorizes the proposed funding step. A production integration would display the asset, network, fees, and transaction confirmation.",sellerTitle:"Seller view · wait for confirmed escrow",sellerCopy:"The seller waits for independently verified escrow status before arranging the handover. Never rely on a screenshot as proof of payment."},
+        {label:"Stage 04 · meetup verification",title:"Confirm the handover together.",buyerTitle:"Buyer next action · verify meetup",buyerCopy:"At a suitable public location, the buyer scans the seller's short-lived QR challenge. The transaction advances only when both sides' checks are valid.",sellerTitle:"Seller next action · show meetup QR",sellerCopy:"The seller presents a short-lived, transaction-specific QR challenge and confirms the buyer's matching meetup check."},
+        {label:"Stage 05 · inspection & decision",title:"Inspect the item before the release decision.",buyerTitle:"Buyer next action · inspect, then decide",buyerCopy:"The buyer compares the device with its listing and records acceptance or raises a dispute. A production contract must enforce the agreed outcome safely.",sellerTitle:"Seller view · complete handover, await outcome",sellerCopy:"The seller completes the handover and waits for the recorded acceptance or dispute outcome before settlement."}
+      ];
+      let activeRole = "buyer";
+      const title = document.getElementById("stage-title");
+      const label = document.getElementById("stage-label");
+      const actorTitle = document.getElementById("actor-title");
+      const actorCopy = document.getElementById("actor-copy");
+      const actorIcon = document.querySelector(".actor-icon");
+      function selectStage(index) {
+        const stage = stages[index];
+        if (!stage) return;
+        label.textContent = stage.label;
+        title.textContent = stage.title;
+        actorTitle.textContent = activeRole === "buyer" ? stage.buyerTitle : stage.sellerTitle;
+        actorCopy.textContent = activeRole === "buyer" ? stage.buyerCopy : stage.sellerCopy;
+        actorIcon.textContent = String(index + 1).padStart(2, "0");
+        document.querySelectorAll("[data-demo-step]").forEach(button => {
+          if (Number(button.dataset.demoStep) === index) button.setAttribute("aria-current", "step");
+          else button.removeAttribute("aria-current");
+        });
+      }
+      document.querySelectorAll("[data-role]").forEach(button => button.addEventListener("click", () => {
+        activeRole = button.dataset.role;
+        document.querySelectorAll("[data-role]").forEach(roleButton => roleButton.setAttribute("aria-pressed", String(roleButton === button)));
+        const selected = document.querySelector('[data-demo-step][aria-current="step"]');
+        selectStage(selected ? Number(selected.dataset.demoStep) : 0);
+      }));
+      document.querySelectorAll("[data-demo-step]").forEach(button => button.addEventListener("click", () => selectStage(Number(button.dataset.demoStep))));
+      document.querySelectorAll("[data-step]").forEach(button => button.addEventListener("click", () => {
+        selectStage(Number(button.dataset.step));
+        document.getElementById("how-it-works").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+      }));
+    })();
+  </script>
 </body>
 </html>
